@@ -1,0 +1,4 @@
+pandas==1.0.3
+pyarrow==0.16.0
+redis==3.4.1
+kaggle==1.5.6

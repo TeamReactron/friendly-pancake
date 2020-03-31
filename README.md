@@ -9,3 +9,9 @@ confi:
 4.install redis: https://github.com/rgl/redis/downloads
     add environmental variable to path
     run redis server
+
+
+congfi:
+To run app:
+npm install
+npm start

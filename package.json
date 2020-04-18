@@ -1,7 +1,7 @@
 {
-  "name": "data-ontology-tool",
-  "description": "Data Ontology Tool",
-  "author": "MasterBranch",
+  "name": "CS4440 Project",
+  "description": "CS4440 Project",
+  "author": "TeamReactron",
   "version": "0.0.1",
   "private": true,
   "dependencies": { 

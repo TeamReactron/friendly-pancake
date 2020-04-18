@@ -20,7 +20,7 @@ if __name__ == "__main__":
         api.dataset_download_files('sobhanmoosavi/us-accidents',path = dataset_path,unzip=True)
 
     # read select data into pandas dataframe
-    df = pd.read_csv(file_name,usecols=col_list,nrows=5)
+    df = pd.read_csv(file_name,usecols=col_list,nrows=20)
     # print(df)
 
     # redis connection
@@ -34,17 +34,32 @@ if __name__ == "__main__":
     #     pipe.set(df['hash'][i], df['value'][i])
     # results = pipe.execute()
 
+    print(type(df))
+    # print(df[['ID']])
+    stateDict = {}
     # load dataframe into redis
+
+
+    for index, row in df.iterrows():
+        # print(row['State'])
+        if row['County'] not in stateDict:
+            stateDict[row['County']] = [row]
+            # print(type([row]))
+        else :
+            # print(stateDict[row['State']])
+            stateDict[row['County']].append(row)
+    # print(stateDict)
+
+
     context = pa.default_serialization_context()
-    r.set("key", context.serialize(df).to_buffer().to_pybytes())
-    print( context.deserialize(r.get("key")))
+    # r.set("key", context.serialize(df.loc['A-1']).to_buffer().to_pybytes())
+    # r.set("OH", context.serialize(stateDict['OH']).to_buffer().to_pybytes())
+    # print(context.deserialize(r.get("OH")))
 
-
-
-
-
-
-
-
-
+    for county in stateDict:
+        r.set(county, context.serialize(stateDict[county]).to_buffer().to_pybytes())
+        print(context.deserialize(r.get(county)))
+    # for i in range (5): 
+    #     r.set("key" + str(i), context.serialize(df[i]).to_buffer().to_pybytes())
+    #     print( context.deserialize(r.get("key"+ str(i))))
 

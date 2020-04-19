@@ -11,12 +11,26 @@ import { scaleQuantile } from "d3-scale";
 import { useEffect, useState } from "react";
 import { csv } from "d3-fetch";
 import allStates from "../data/allstates.json";
+import { hu } from "date-fns/locale";
 
+
+var countytext = document.getElementById('county');
+var statetext = document.getElementById('state');
+var accidenttext = document.getElementById('accident'); 
+var temperaturetext =  document.getElementById('temperature').value;
+var humiditytext =  document.getElementById('humidity').value;
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
+// function predictionClick(){
+//   console.log(temperaturetext);
+//   console.log(humiditytext);
+// }
+
 
 const MapChart = () => {
+  // TO DO
+
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -45,7 +59,7 @@ const MapChart = () => {
         {({ geographies }) => 
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
-            console.log(data)
+            // console.log(data)
             return (
               <Geography
                 key={geo.rsmKey}
@@ -57,6 +71,7 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
+    
   );
 };
 

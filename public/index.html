@@ -30,9 +30,24 @@
     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
-  <body style="background-color: #2d3436;">
+  <body style="background-color: #aab0b1;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root" >    </div>
+
+    
+    <form action="">
+      <label for="temperature">Temperature:</label>
+      <input type="text" id="temperature" name="temperature"><br><br>
+      <label for="humidity">Humidity:</label>
+      <input type="text" id="humidity" name="humidity"><br><br>
+      <button type="button" id = "predictbutton"  onclick="predictionClick()"> Predict     </button>   
+    </form>
+   
+    <div id="tooltip-container">
+      <p><strong>State:</strong> <span id="state"></span></p>
+      <p><strong>County:</strong><span id="county"></span></p>
+      <p><strong>Total Accidents Number:</strong><span id="accident"></span></p>  
+    </div>
 
     <style>
       #root {

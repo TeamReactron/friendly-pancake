@@ -27,12 +27,14 @@ const MapChart = ({months}) => {
  
   
 
+  const[csvName, setCSVName] = useState('/sample3.csv');
   const [data, setData] = useState([]);
   useEffect(() => {
-    csv("/sample3.csv").then(county => {
-      setData(county);
-    })
-  }, []);
+      csv(csvName).then(county => {
+        setData(county);
+      })
+    }, [csvName]); 
+  
 
   const colorScale = scaleQuantile()
       .domain(data.map(d => d.unemployment_rate))
@@ -52,7 +54,13 @@ const MapChart = ({months}) => {
         let minTime = new Date("2017/01/01");
         let showDate = new Date(minTime.getTime());
         showDate.setMonth(showDate.getMonth() + months);
-        console.log(showDate);
+        if (showDate < new Date('2018-10-24')) {
+          setCSVName('/sample3.csv');
+          console.log(csvName);
+        } else {
+          setCSVName('/sample1.csv');
+          console.log(csvName);
+        }
         return showDate
       }
 
@@ -92,7 +100,6 @@ const MapChart = ({months}) => {
             if (cur) {
               let date_str = cur.date;
               cur.date = new Date(date_str);
-              console.log(cur.date);
             }
             // console.log(data)
             return (

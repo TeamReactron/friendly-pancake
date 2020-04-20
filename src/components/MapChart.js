@@ -49,18 +49,29 @@ const MapChart = () => {
       ])
 
       function predictionClick() {
-        window.open('MachineLearning.html')
+      
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
         var county = document.getElementById("county").value;;
         var state = document.getElementById("state").value;;
+        console.log(typeof(county));
+        var s = countyArr
+        console.log(county in countyArr);
+        console.log(state);
+        console.log(stateArr);
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
         
+          alert("Invalid state or county name");
 
+        }  else {
         // need to pass parameters to ML 
         console.log(temp);
         console.log(humi);
         console.log(county);
         console.log(state);
+          window.open('MachineLearning.html')
+        }
+
       }
 
   return (

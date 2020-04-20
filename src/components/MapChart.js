@@ -13,13 +13,6 @@ import { csv } from "d3-fetch";
 import allStates from "../data/allstates.json";
 import { hu } from "date-fns/locale";
 
-
-var countytext = document.getElementById('county');
-var statetext = document.getElementById('state');
-var accidenttext = document.getElementById('accident'); 
-var temperaturetext =  document.getElementById('temperature').value;
-var humiditytext =  document.getElementById('humidity').value;
-
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
 // function predictionClick(){
@@ -71,7 +64,6 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
-    
   );
 };
 

@@ -35,35 +35,19 @@
     <div id="root" >    </div>
 
     
-    <!-- <form onsubmit="window.open('MachineLearning.html')"> -->
-      <form onsubmit="window.open('MachineLearning.html');  " >
+    <!-- <form action="">
       <label for="temperature">Temperature:</label>
       <input type="text" id="temperature" name="temperature"><br><br>
       <label for="humidity">Humidity:</label>
       <input type="text" id="humidity" name="humidity"><br><br>
-      <input type="submit" value="Predict">
-      <!-- <script>
-        function myFunction(){
-          alert("The form was submitted");
-            // $.ajax({
-            //   url: "MachineLearning.py",
-            //  context: document.body
-            // }).done(function() {
-            //  alert('finished python script');;
-            // });
-        }
-    </script>    -->
+      <button type="button" id = "predictbutton"  onclick={predictionClick}> Predict     </button>   
     </form>
-
-
-
-
    
     <div id="tooltip-container">
       <p><strong>State:</strong> <span id="state"></span></p>
       <p><strong>County:</strong><span id="county"></span></p>
       <p><strong>Total Accidents Number:</strong><span id="accident"></span></p>  
-    </div>
+    </div> -->
 
     <style>
       #root {

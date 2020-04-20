@@ -21,8 +21,12 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 const MapChart = ({months}) => {
   //////////////
 // read from api
-  var stateArr = ["AL","GA","OH"];
-  var countyArr = ["Dekalb","Fulton","Decature"]
+  var stateArr = ["AL","GA","OH","AK","AR","FL"];
+  var countyArr = ["Dekalb","Fulton","Decatur"];
+ 
+
+
+
   
  
   
@@ -63,6 +67,23 @@ const MapChart = ({months}) => {
         }
         return showDate
       }
+      function searchClick(){
+        var county = document.getElementById("county").value;;
+        var state = document.getElementById("state").value;;
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
+        
+          alert("Invalid state or county name");
+
+        }  else {
+          var date = document.getElementById("date").value;
+          var toatl_count = Math.round(Math.random()*3 + 5); 
+          var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date+"\nTotal Accident Number: "+toatl_count;
+          alert(message);
+     
+        }
+        
+
+      }
 
       function predictionClick() {
       
@@ -71,7 +92,7 @@ const MapChart = ({months}) => {
         var county = document.getElementById("county").value;;
         var state = document.getElementById("state").value;;
         console.log(typeof(county));
-        var s = countyArr
+ 
         console.log(county in countyArr);
         console.log(state);
         console.log(stateArr);
@@ -123,6 +144,11 @@ const MapChart = ({months}) => {
         County:
         <input type="text" name="county" id = "county" />
       </label>
+      <label>
+        Date:
+        <input type="text" name="date" id = "date" />
+      </label>
+      <button id = 'searchbutton' onClick={searchClick}>Search</button>
       </form> 
     
      <form>

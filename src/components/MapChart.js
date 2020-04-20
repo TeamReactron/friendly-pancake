@@ -49,6 +49,7 @@ const MapChart = () => {
       ])
 
       function predictionClick() {
+        window.open('MachineLearning.html')
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
         var county = document.getElementById("county").value;;
@@ -81,9 +82,8 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
-
-
-    <form>
+    
+    <form >
       <label>
         State:
         <input type="text" name="state" id = "state" />

@@ -29,7 +29,7 @@ const MapChart = ({months}) => {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    csv("/test.csv").then(county => {
+    csv("/sample3.csv").then(county => {
       setData(county);
     })
   }, []);
@@ -90,7 +90,7 @@ const MapChart = ({months}) => {
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
             if (cur) {
-              let date_str = cur.Start_Time;
+              let date_str = cur.date;
               cur.date = new Date(date_str);
               console.log(cur.date);
             }
@@ -99,7 +99,7 @@ const MapChart = ({months}) => {
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={cur && cur.date >= calculateDate() ? colorScale(cur.unemployment_rate) : "#EEE"}
+                fill={cur && cur.date <= calculateDate() ? colorScale(cur.unemployment_rate) : "#EEE"}
               />
             );
           })

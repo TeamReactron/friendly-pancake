@@ -14,24 +14,14 @@ import allStates from "../data/allstates.json";
 import { hu } from "date-fns/locale";
 
 
-var countytext = document.getElementById('county');
-var statetext = document.getElementById('state');
-var accidenttext = document.getElementById('accident'); 
-var temperaturetext =  document.getElementById('temperature').value;
-var humiditytext =  document.getElementById('humidity').value;
+
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
-// function predictionClick(){
-//   console.log(temperaturetext);
-//   console.log(humiditytext);
-// }
-
-
-const MapChart = ({ year }) => {
   // TO DO
 
 
+const MapChart = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     csv("/unemployment-by-county-2017.csv").then(county => {
@@ -52,25 +42,58 @@ const MapChart = ({ year }) => {
         "#9a311f",
         "#782618"
       ])
+      
+
+      function predictionClick() {
+        var temp = document.getElementById("temperature").value;
+        var humi = document.getElementById("humidity").value;
+        console.log(temp);
+        console.log(humi);
+      }
+
 
   return (
-    <ComposableMap projection="geoAlbersUsa">
-      <Geographies geography={geoUrl}>
-        {({ geographies }) => 
-          geographies.map(geo => {
-            const cur = data.find(s => s.id === geo.id);
-            // console.log(data)
-            return (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                fill={cur ? colorScale(cur.unemployment_rate) : "#EEE"}
-              />
-            );
-          })
-        }
-      </Geographies>
-    </ComposableMap>
+    <div>
+      <ComposableMap projection="geoAlbersUsa">
+        <Geographies geography={geoUrl}>
+          {({ geographies }) => 
+            geographies.map(geo => {
+              const cur = data.find(s => s.id === geo.id);
+
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={cur ? colorScale(cur.unemployment_rate) : "#EEE"}
+                />
+              );
+            })
+          }
+        </Geographies>
+      </ComposableMap>
+      <form>
+      <label>
+        Humidity:
+        <input type="text" name="humidity" id = "humidity" />
+      </label>
+      <label>
+        Temperature:
+        <input type="text" name="temperature" id = "temperature" />
+      </label>
+      </form> 
+      <button id = 'predictionbutton' onClick={predictionClick}>Predict</button>
+      
+      <div id="tooltip-container">
+      <p><strong>State:</strong> <span id="state"></span></p>
+      <p><strong>County:</strong><span id="county"></span></p>
+      <p><strong>Total Accidents Number:</strong><span id="accident"></span></p>  
+    </div>
+      
+
+   </div>
+
+   
+    
   );
 };
 

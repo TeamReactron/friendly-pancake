@@ -15,10 +15,7 @@ import { hu } from "date-fns/locale";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
-// function predictionClick(){
-//   console.log(temperaturetext);
-//   console.log(humiditytext);
-// }
+
 
 
 const MapChart = () => {
@@ -46,7 +43,16 @@ const MapChart = () => {
         "#782618"
       ])
 
+      function predictionClick() {
+        var temp = document.getElementById("temperature").value;
+        var humi = document.getElementById("humidity").value;
+        // need to pass parameters to ML 
+        console.log(temp);
+        console.log(humi);
+      }
+
   return (
+    <div>
     <ComposableMap projection="geoAlbersUsa">
       <Geographies geography={geoUrl}>
         {({ geographies }) => 
@@ -64,6 +70,28 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
+    
+    <form>
+      <label>
+        Humidity:
+        <input type="text" name="humidity" id = "humidity" />
+      </label>
+      <label>
+        Temperature:
+        <input type="text" name="temperature" id = "temperature" />
+      </label>
+      </form> 
+      <button id = 'predictionbutton' onClick={predictionClick}>Predict</button>
+      
+      <div id="tooltip-container">
+      <p><strong>State:</strong> <span id="state"></span></p>
+      <p><strong>County:</strong><span id="county"></span></p>
+      <p><strong>Total Accidents Number:</strong><span id="accident"></span></p>  
+      </div>
+
+
+
+    </div>
   );
 };
 

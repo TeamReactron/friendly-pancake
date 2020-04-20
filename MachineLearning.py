@@ -29,7 +29,7 @@ from folium.plugins import HeatMap
 
 # In[45]:
 
-alert("The form was submitted");
+# alert("The form was submitted");
 df = pd.read_csv('US_accident_cleaned')
 state='GA'
 
@@ -116,7 +116,7 @@ hmap
 
 
 # In[ ]:
-
+hmap.save('public/hmap.html')
 
 
 

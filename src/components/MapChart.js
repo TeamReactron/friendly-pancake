@@ -10,8 +10,11 @@ import {
 import { scaleQuantile } from "d3-scale";
 import { useEffect, useState } from "react";
 import { csv } from "d3-fetch";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import allStates from "../data/allstates.json";
 import { hu } from "date-fns/locale";
+import { setSeconds } from "date-fns";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
@@ -33,6 +36,7 @@ const MapChart = ({months}) => {
 
   const[csvName, setCSVName] = useState('/Oct24.csv');
   const [data, setData] = useState([]);
+  const [county, setCounty] = useState('');
   useEffect(() => {
       csv(csvName).then(county => {
         setData(county);
@@ -67,22 +71,12 @@ const MapChart = ({months}) => {
         }
         return showDate
       }
-      function searchClick(){
-        var county = document.getElementById("county").value;;
-        var state = document.getElementById("state").value;;
-        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
-        
-          alert("Invalid state or county name");
 
-        }  else {
-          var date = document.getElementById("date").value;
-          var toatl_count = Math.round(Math.random()*3 + 5); 
-          var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date+"\nTotal Accident Number: "+toatl_count;
-          alert(message);
-     
-        }
-        
-
+      const handleChange = event => {
+        setCounty(event.target.value);
+      }
+      const searchClick = () => {
+        alert(1)
       }
 
       function predictionClick() {
@@ -118,15 +112,12 @@ const MapChart = ({months}) => {
         {({ geographies }) => 
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
-            if (cur) {
-              console.log(cur)
-            }
             // console.log(data)
             return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={cur && calculateDate() ? colorScale(cur.count) : "#EEE"}
+                fill={cur && calculateDate() && (county === '' || cur.name === county) ? colorScale(cur.count) : "#EEE"}
               />
             );
           })
@@ -135,31 +126,16 @@ const MapChart = ({months}) => {
     </ComposableMap>
     
     <form >
-      <label>
-        State:
-        <input type="text" name="state" id = "state" />
-      </label>
-      <label>
-        County:
-        <input type="text" name="county" id = "county" />
-      </label>
-      <label>
-        Date:
-        <input type="text" name="date" id = "date" />
-      </label>
-      <button id = 'searchbutton' onClick={searchClick}>Search</button>
-      </form> 
+      <TextField id='state'label="State" />
+      <TextField id='county'label="County" onChange={event => handleChange(event)}/>
+      <TextField id='date'label="Date" />
+      <Button variant="contained" onClick={searchClick}>Submit</Button>
+    </form> 
     
      <form>
-      <label>
-        Humidity:
-        <input type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" />
-      </label>
-      <label>
-        Temperature:
-        <input type="text" name="temperature" id = "temperature" pattern="[0-9]{0,100}" />
-      </label>
-      <button id = 'predictionbutton' onClick={predictionClick}>Predict</button>
+        <TextField label="Humidity" type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" />
+        <TextField label = "Temperature" type="text" name="temperature" id = "temperature" pattern="[0-9]{0,100}" />
+      <Button id='predictionbutton' variant="contained" onClick={predictionClick}>Predict</Button>
       </form> 
       
       

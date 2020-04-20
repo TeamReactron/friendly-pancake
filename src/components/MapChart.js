@@ -44,6 +44,7 @@ const MapChart = () => {
       ])
 
       function predictionClick() {
+        window.open('MachineLearning.html')
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
         // need to pass parameters to ML 
@@ -71,7 +72,7 @@ const MapChart = () => {
       </Geographies>
     </ComposableMap>
     
-    <form>
+    <form >
       <label>
         Humidity:
         <input type="text" name="humidity" id = "humidity" />

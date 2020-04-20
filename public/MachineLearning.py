@@ -116,7 +116,7 @@ hmap
 
 
 # In[ ]:
-
+hmap.save('public/hmap.html')
 
 
 

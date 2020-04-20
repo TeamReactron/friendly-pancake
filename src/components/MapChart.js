@@ -18,18 +18,22 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
 
 
-const MapChart = () => {
+const MapChart = ({months}) => {
   //////////////
 // read from api
-  var stateArr = ["AL","GA","OH"];
-  var countyArr = ["Dekalb","Fulton","Decature"]
+  var stateArr = ["AL","GA","OH","AK","AR","FL"];
+  var countyArr = ["Dekalb","Fulton","Decatur"];
+ 
+
+
+
   
  
   
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    csv("/unemployment-by-county-2017.csv").then(county => {
+    csv("/sample3.csv").then(county => {
       setData(county);
     })
   }, []);
@@ -48,19 +52,55 @@ const MapChart = () => {
         "#782618"
       ])
 
+      const calculateDate = () => {
+        let minTime = new Date("2017/01/01");
+        let showDate = new Date(minTime.getTime());
+        showDate.setMonth(showDate.getMonth() + months);
+        console.log(showDate);
+        return showDate
+      }
+      function searchClick(){
+        var county = document.getElementById("county").value;;
+        var state = document.getElementById("state").value;;
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
+        
+          alert("Invalid state or county name");
+
+        }  else {
+          var date = document.getElementById("date").value;
+          var toatl_count = Math.round(Math.random()*3 + 5); 
+          var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date+"\nTotal Accident Number: "+toatl_count;
+          alert(message);
+     
+        }
+        
+
+      }
+
       function predictionClick() {
-        window.open('MachineLearning.html')
+      
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
         var county = document.getElementById("county").value;;
         var state = document.getElementById("state").value;;
+        console.log(typeof(county));
+ 
+        console.log(county in countyArr);
+        console.log(state);
+        console.log(stateArr);
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
         
+          alert("Invalid state or county name");
 
+        }  else {
         // need to pass parameters to ML 
         console.log(temp);
         console.log(humi);
         console.log(county);
         console.log(state);
+          window.open('hmap.html')
+        }
+
       }
 
   return (
@@ -70,12 +110,17 @@ const MapChart = () => {
         {({ geographies }) => 
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
+            if (cur) {
+              let date_str = cur.date;
+              cur.date = new Date(date_str);
+              console.log(cur.date);
+            }
             // console.log(data)
             return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={cur ? colorScale(cur.unemployment_rate) : "#EEE"}
+                fill={cur && cur.date <= calculateDate() ? colorScale(cur.unemployment_rate) : "#EEE"}
               />
             );
           })
@@ -92,6 +137,11 @@ const MapChart = () => {
         County:
         <input type="text" name="county" id = "county" />
       </label>
+      <label>
+        Date:
+        <input type="text" name="date" id = "date" />
+      </label>
+      <button id = 'searchbutton' onClick={searchClick}>Search</button>
       </form> 
     
      <form>

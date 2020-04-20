@@ -19,8 +19,13 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
 
 const MapChart = () => {
-  // TO DO
-
+  //////////////
+// read from api
+  var stateArr = ["AL","GA","OH"];
+  var countyArr = ["Dekalb","Fulton","Decature"]
+  
+ 
+  
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -46,9 +51,15 @@ const MapChart = () => {
       function predictionClick() {
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
+        var county = document.getElementById("county").value;;
+        var state = document.getElementById("state").value;;
+        
+
         // need to pass parameters to ML 
         console.log(temp);
         console.log(humi);
+        console.log(county);
+        console.log(state);
       }
 
   return (
@@ -70,25 +81,38 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
-    
+
+
     <form>
       <label>
+        State:
+        <input type="text" name="state" id = "state" />
+      </label>
+      <label>
+        County:
+        <input type="text" name="county" id = "county" />
+      </label>
+      </form> 
+    
+     <form>
+      <label>
         Humidity:
-        <input type="text" name="humidity" id = "humidity" />
+        <input type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" />
       </label>
       <label>
         Temperature:
-        <input type="text" name="temperature" id = "temperature" />
+        <input type="text" name="temperature" id = "temperature" pattern="[0-9]{0,100}" />
       </label>
-      </form> 
       <button id = 'predictionbutton' onClick={predictionClick}>Predict</button>
+      </form> 
       
-      <div id="tooltip-container">
+      
+      {/* <div id="tooltip-container">
       <p><strong>State:</strong> <span id="state"></span></p>
       <p><strong>County:</strong><span id="county"></span></p>
       <p><strong>Total Accidents Number:</strong><span id="accident"></span></p>  
-      </div>
-
+      </div> */}
+     
 
 
     </div>

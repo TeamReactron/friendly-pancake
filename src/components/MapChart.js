@@ -54,13 +54,18 @@ const MapChart = () => {
         var humi = document.getElementById("humidity").value;
         var county = document.getElementById("county").value;;
         var state = document.getElementById("state").value;;
-        
 
+        if (!(county in countyArr) || !(state in stateArr)) {
+          alert("Invalid state or county name");
+
+        }  else {
         // need to pass parameters to ML 
         console.log(temp);
         console.log(humi);
         console.log(county);
         console.log(state);
+        }
+
       }
 
   return (

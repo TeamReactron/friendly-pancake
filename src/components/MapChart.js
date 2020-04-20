@@ -18,7 +18,7 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
 
 
-const MapChart = () => {
+const MapChart = ({months}) => {
   //////////////
 // read from api
   var stateArr = ["AL","GA","OH"];
@@ -29,7 +29,7 @@ const MapChart = () => {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    csv("/unemployment-by-county-2017.csv").then(county => {
+    csv("/test.csv").then(county => {
       setData(county);
     })
   }, []);
@@ -47,6 +47,14 @@ const MapChart = () => {
         "#9a311f",
         "#782618"
       ])
+
+      const calculateDate = () => {
+        let minTime = new Date("2017/01/01");
+        let showDate = new Date(minTime.getTime());
+        showDate.setMonth(showDate.getMonth() + months);
+        console.log(showDate);
+        return showDate
+      }
 
       function predictionClick() {
       
@@ -81,12 +89,17 @@ const MapChart = () => {
         {({ geographies }) => 
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
+            if (cur) {
+              let date_str = cur.Start_Time;
+              cur.date = new Date(date_str);
+              console.log(cur.date);
+            }
             // console.log(data)
             return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={cur ? colorScale(cur.unemployment_rate) : "#EEE"}
+                fill={cur && cur.date >= calculateDate() ? colorScale(cur.unemployment_rate) : "#EEE"}
               />
             );
           })

@@ -6,9 +6,6 @@ export default function Init() {
 
 return (
       <div className="Init" >
-        <div className="mapchart">
-            <MapChart/>
-        </div>
         <Timeline />  
       </div>
     );

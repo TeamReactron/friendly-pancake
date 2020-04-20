@@ -5,33 +5,55 @@ import Slider from '@material-ui/core/Slider';
 
 
 const Timeline = () => {
+  let minTime = new Date("2017/01/01");
+  let maxTime = new Date("2020/04/01");
   // Declare a new state variable, which we'll call "count"
-  const [year, setYear] = useState(2000);
+  const [time, setTime] = useState('');
 
   const handleChange = event => {
       //console.log(event.target.ariaValueNow);
-      setYear(event.target.ariaValueText);
+      setTime(event.target.ariaValueText);
       console.log(event)
   }
 
   function valuetext(value) {
-    setYear(value)
-    return `${value}`;
+    let months = value;
+    let oldDate = new Date(time);
+    let newDate = new Date(oldDate.setMonth(oldDate.getMonth() + months));
+    setTime(value);
+    return `${value}s later`;
   }
+
+  function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth() + 1;
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+  }
+
+  const calculateTime = months => {
+    let showDate = new Date(minTime.getTime());
+    showDate.setMonth(showDate.getMonth() + months);
+    console.log(showDate.getMonth() + 1);
+    return showDate.getFullYear() + '/' + (showDate.getMonth() + 1) + '/' + showDate.getDate()
+  }
+
+
 
   return (
     <div>
       <Typography id="timeline" gutterBottom>
-        Year: {year}
+        Time: {calculateTime(time)}
       </Typography>
       <Slider
-        defaultValue={2000}
+        defaultValue={0}
         getAriaValueText={valuetext}
         aria-labelledby="timeline"
-        step={1}
+        step={2}
         marks
-        min={2000}
-        max={2025}
+        min={0}
+        max={monthDiff(minTime, maxTime)}
         valueLabelDisplay="auto"
         onChange={event => handleChange(event)}
       />

@@ -69,7 +69,7 @@ const MapChart = () => {
         console.log(humi);
         console.log(county);
         console.log(state);
-          window.open('MachineLearning.html')
+          window.open('hmap.html')
         }
 
       }

@@ -29,3 +29,7 @@
 .MDImg img {
   max-width: 100%;
 }
+
+#textInput {
+  width: '25ch';
+}

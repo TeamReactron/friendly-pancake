@@ -71,7 +71,6 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
-    
   );
 };
 

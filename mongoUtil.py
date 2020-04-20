@@ -3,11 +3,17 @@ import csv
 from pprint import pprint
 from pymongo import InsertOne, DeleteMany, ReplaceOne, UpdateOne, WriteConcern
 from pymongo.errors import BulkWriteError
+import os
+from kaggle.api.kaggle_api_extended import KaggleApi
 
 
 
 # match_connection = MongoClient(**MONGODB_CONFIG)
 # match_collection = match_connection[]
+
+
+dataset_path = os.getcwd()
+file_name = 'US_Accidents_Dec19.csv'
 
 client = MongoClient('localhost', 27017)
 # os.getenv("MONGODB_CONFIG")
@@ -69,7 +75,7 @@ def writeAccidentToMongo(arr):
                     'Civil_Twilight': arr[i][46],
                     'Nautical_Twilight': arr[i][47],
                     'Astronomical_Twilight': arr[i][48],
-                    }) for i in range(len(arr))
+                    }) for i in range(len(arr) - 1)
                 ])
         except BulkWriteError as bwe:
             pprint(bwe.details)
@@ -113,7 +119,7 @@ def writeWeatherToMongo(arr):
                     'Civil_Twilight': arr[i][46],
                     'Nautical_Twilight': arr[i][47],
                     'Astronomical_Twilight': arr[i][48],
-                    }) for i in range(len(arr))
+                    }) for i in range(len(arr) - 1)
                 ])
         except BulkWriteError as bwe:
             pprint(bwe.details)
@@ -153,6 +159,12 @@ if __name__ == "__main__":
     # weatherArr = {(county, date): [[temp1, temp2...], [chill1, chill2...]]}
 
     # file.close()
+    if os.path.exists(dataset_path + '/' + file_name) == False:
+        api = KaggleApi()
+        api.authenticate()
+        api.dataset_download_files('sobhanmoosavi/us-accidents',path = dataset_path,unzip=True)
+
+
     with open('US_Accidents_Dec19.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:

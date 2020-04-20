@@ -28,7 +28,7 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 // }
 
 
-const MapChart = () => {
+const MapChart = ({ year }) => {
   // TO DO
 
 
@@ -71,7 +71,6 @@ const MapChart = () => {
         }
       </Geographies>
     </ComposableMap>
-    
   );
 };
 

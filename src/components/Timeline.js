@@ -48,7 +48,7 @@ const Timeline = () => {
         Time: {calculateTime(time)}
       </Typography>
       <Slider
-        defaultValue={0}
+        defaultValue={20}
         getAriaValueText={valuetext}
         aria-labelledby="timeline"
         step={2}

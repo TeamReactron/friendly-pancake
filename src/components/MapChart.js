@@ -31,7 +31,7 @@ const MapChart = ({months}) => {
  
   
 
-  const[csvName, setCSVName] = useState('/sample3.csv');
+  const[csvName, setCSVName] = useState('/Oct24.csv');
   const [data, setData] = useState([]);
   useEffect(() => {
       csv(csvName).then(county => {
@@ -41,7 +41,7 @@ const MapChart = ({months}) => {
   
 
   const colorScale = scaleQuantile()
-      .domain(data.map(d => d.unemployment_rate))
+      .domain(data.map(d => d.count))
       .range([
         "#ffedea",
         "#ffcec5",
@@ -58,11 +58,11 @@ const MapChart = ({months}) => {
         let minTime = new Date("2017/01/01");
         let showDate = new Date(minTime.getTime());
         showDate.setMonth(showDate.getMonth() + months);
-        if (showDate < new Date('2018-10-24')) {
-          setCSVName('/sample3.csv');
+        if (showDate <= new Date('2018-10-24')) {
+          setCSVName('/Oct24.csv');
           console.log(csvName);
         } else {
-          setCSVName('/sample1.csv');
+          setCSVName('/employee_file.csv');
           console.log(csvName);
         }
         return showDate
@@ -119,15 +119,14 @@ const MapChart = ({months}) => {
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
             if (cur) {
-              let date_str = cur.date;
-              cur.date = new Date(date_str);
+              console.log(cur)
             }
             // console.log(data)
             return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={cur && cur.date <= calculateDate() ? colorScale(cur.unemployment_rate) : "#EEE"}
+                fill={cur && calculateDate() ? colorScale(cur.count) : "#EEE"}
               />
             );
           })

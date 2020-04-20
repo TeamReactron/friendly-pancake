@@ -19,10 +19,13 @@ client = MongoClient('localhost', 27017)
 # os.getenv("MONGODB_CONFIG")
 
 teleArr = []
+weatherArr = {}
+aveWeatherArr = []
 
 db = client.accident_database
 accidentCollection = db.accident_collection
 weatherCollection = db.weather_coolection
+countyWeatherCollection = db.countyWeather_collection
 
 coll = db.get_collection(
     'test', write_concern=WriteConcern(w=3, wtimeout=1))
@@ -122,6 +125,25 @@ def writeWeatherToMongo(arr):
             pprint(bwe.details)
         # logger.info(f'Loaded {} matches into db')
 
+def writeAveWeatherToMongo(arr):
+    if len(arr) > 0:
+        try:
+            db.countyWeatherCollection.bulk_write([
+                # InsertOne({'_id':teleArr[2]}),
+                InsertOne({
+                    'County': arr[i][0],
+                    'Date': arr[i][1],
+                    'Temperature(F)': arr[i][2],
+                    'Humidity(%)': arr[i][3],
+                    'Pressure(in)': arr[i][4],
+                    'Visibility(mi)': arr[i][5],
+                    'Percipitation': arr[i][6], 
+                    }) for i in range(len(arr))
+                ])
+        except BulkWriteError as bwe:
+            pprint(bwe.details)
+        # logger.info(f'Loaded {} matches into db')
+
 
 
 
@@ -132,6 +154,9 @@ if __name__ == "__main__":
         
     #     sline = line.split(',')
     #     teleArr.append(sline)
+    
+    
+    # weatherArr = {(county, date): [[temp1, temp2...], [chill1, chill2...]]}
 
     # file.close()
     if os.path.exists(dataset_path + '/' + file_name) == False:
@@ -143,10 +168,33 @@ if __name__ == "__main__":
     with open('US_Accidents_Dec19.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
+            date = row[22].split(' ')[0]
+            # print(date)
+            if row[16] is not '' and row[23] is not '' and row[25] is not '' and row[26] is not '' and row[27] is not '':
+                # print(row)
+                # print(float(row[23]), float(row[25]), float(row[26]), float(row[27]), [float(row[30])] if row[30] is not '' else 0)
+                if ((row[16], date)) not in weatherArr:
+                    percip = float(row[30]) if row[30] is not '' else 0
+                    weatherArr[row[16], date] = [[float(row[23])], [float(row[25])], [float(row[26])], [float(row[27])], [percip]]
+                else:
+                    # print((row[16], date))
+                    weatherArr[row[16], date][0].append(float(row[23]))
+                    weatherArr[row[16], date][1].append(float(row[25]))
+                    weatherArr[row[16], date][2].append(float(row[26]))
+                    weatherArr[row[16], date][3].append(float(row[27]))
+                    weatherArr[row[16], date][4].append(percip)
             # sline = row.split(',')
-            teleArr.append(row)
-
-    writeAccidentToMongo(teleArr)
-    writeWeatherToMongo(teleArr)
+            # teleArr.append(row)
+        for key in weatherArr.keys():
+            # print([key[0], key[1], sum(weatherArr[key][0])/len(weatherArr[key][0]), 
+            #     sum(weatherArr[key][1])/len(weatherArr[key][1]), sum(weatherArr[key][2])/len(weatherArr[key][2])])
+            # print([weatherArr[key][3], weatherArr[key][4]])
+            aveWeatherArr.append([key[0], key[1], sum(weatherArr[key][0])/len(weatherArr[key][0]), 
+                sum(weatherArr[key][1])/len(weatherArr[key][1]), sum(weatherArr[key][2])/len(weatherArr[key][2]), 
+                sum(weatherArr[key][3])/len(weatherArr[key][3]), sum(weatherArr[key][4])/len(weatherArr[key][4])])
+        # print(aveWeatherArr)
+    # writeAccidentToMongo(teleArr)
+    # writeWeatherToMongo(teleArr)
+    writeAveWeatherToMongo(aveWeatherArr)
     # print(teleArr)
     # db.accidentCollection.drop()

@@ -13,7 +13,7 @@ import { csv } from "d3-fetch";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import allStates from "../data/allstates.json";
-import { hu } from "date-fns/locale";
+import { hu, ro } from "date-fns/locale";
 import { setSeconds } from "date-fns";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
@@ -72,11 +72,57 @@ const MapChart = ({months}) => {
         return showDate
       }
 
+     
+
       const handleChange = event => {
         setCounty(event.target.value);
       }
-      const searchClick = () => {
-        alert(1)
+      function searchClick(){
+        var county = document.getElementById("county").value;;
+        var state = document.getElementById("state").value;;
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
+        
+          alert("Invalid state or county name");
+
+        }  else {
+          var year = document.getElementById("year").value;
+          var month = document.getElementById("month").value;
+          var day = document.getElementById("day").value;
+          if (year != "" || month != "" || day != ""){
+            var date = year + "/" + month + "/" + day;
+          } else{
+            var date = "";
+          } 
+          var windspeed = document.getElementById("windspeed").value;
+
+          var severity = document.querySelector('#severity-dropdown').value;
+          var stopsign = document.querySelector('#stopsign-dropdown').value; 
+          var bump = document.querySelector('#bump-dropdown').value; 
+          var airportcode = document.querySelector('#airport-dropdown').value; 
+          var crossing = document.querySelector('#crossing-dropdown').value;
+          var junction = document.querySelector('#junction-dropdown').value; 
+          var noexit = document.querySelector('#exit-dropdown').value; 
+          var railway = document.querySelector('#railway-dropdown').value; 
+          var calming = document.querySelector('#calming-dropdown').value; 
+          var roundabout = document.querySelector('#roundabout-dropdown').value; 
+          var signal = document.querySelector('#signal-dropdown').value;  
+          var loop  = document.querySelector('#loop-dropdown').value; 
+          
+
+          var toatl_count = Math.round(Math.random()*300 + 5); 
+
+          var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date
+             +"\nSeverity: " + severity + "\nStopSign: " + stopsign + "\nBump: " + bump
+              + "\nAirport Code: "+airportcode + "\nCrossing: "+crossing+ "\nJunction: "+junction
+              + "\nNo Exit: " + noexit + "\nRailway: " + railway + "\nTraffic Calming: "+calming
+              + "\n Roundabout: "+roundabout + "\nTaffic Signal: "+signal+ "\nTraffic Loop: " +loop 
+              +"\nTotal Accident Number: " +toatl_count
+          ;
+          alert(message);
+     
+        }
+        
+
       }
 
       function predictionClick() {
@@ -128,13 +174,110 @@ const MapChart = ({months}) => {
     <form >
       <TextField id='state'label="State" />
       <TextField id='county'label="County" onChange={event => handleChange(event)}/>
-      <TextField id='date'label="Date" />
-      <Button variant="contained" onClick={searchClick}>Submit</Button>
+      <TextField id='year'label="Year" />
+      <TextField id='month'label="Month" />
+      <TextField id='day'label="Day" />
+      <TextField id='windspeed'label="WindowSpeed" />
+    
     </form> 
+    <form>
+    <label>
+        Severity:
+        <select   id="severity-dropdown" >
+        <option value="level1">Level 1</option>
+        <option value="level2">Level 2</option> 
+        <option value="level3">Level 3</option>  
+        <option value="level4">Level 4</option>     
+        </select> 
+        </label> 
+    <label>
+        StopSign:
+      <select id="stopsign-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label> 
+        <label>
+        Bump:
+      <select required id="bump-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label> 
+        <label>
+        Airport Code:
+      <select required id="airport-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label> 
+        <label>
+        Crossing:
+      <select required id="crossing-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label> 
+        <label>
+        Junction:
+      <select required id="junction-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label>
+        
+    </form>
+    <form>
+    <label>
+        No Exit:
+      <select required id="exit-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label> 
+        <label>
+        Railway:
+      <select required id="railway-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label>
+        <label>
+        Traffic Calming:
+      <select required id="calming-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label>
+        <label>
+        Roundabout:
+      <select required id="roundabout-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label>
+        <label>
+        Traffic Signal:
+      <select required id="signal-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label>
+        <label>
+        Traffic Loop:
+      <select required id="loop-dropdown" >
+        <option selected="selected">YES</option>  
+        <option selected="selected">NO</option> 
+        </select> 
+        </label>
+
+        <Button variant="contained" onClick={searchClick}>Submit</Button>
+    </form>
     
      <form>
         <TextField label="Humidity" type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" />
         <TextField label = "Temperature" type="text" name="temperature" id = "temperature" pattern="[0-9]{0,100}" />
+       
       <Button id='predictionbutton' variant="contained" onClick={predictionClick}>Predict</Button>
       </form> 
       

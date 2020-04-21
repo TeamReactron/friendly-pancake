@@ -25,7 +25,7 @@ const MapChart = ({months}) => {
   //////////////
 // read from api
   var stateArr = ["AL","GA","OH","AK","AR","FL"];
-  var countyArr = ["Dekalb","Fulton","Decatur"];
+  var countyArr = ["Dekalb","Fulton","Decatur","Alpharetta"];
  
 
 

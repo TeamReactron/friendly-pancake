@@ -125,6 +125,42 @@ const MapChart = ({months}) => {
 
       }
 
+
+      function severityClick(){
+        var county = document.getElementById("county").value;;
+        var state = document.getElementById("state").value;;
+        // var severityMap = {"January":2.2,"Feburary":3,"March":4.3,"April":3.5,"May":1.4,
+        //   "June":1.5,"July":4.3,"August":5,"September":2,"October":4,"November":3,"December":2};
+        var sevKey = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var sevValue = [1.5,3.4,3,4,3.5,2,4.2,1,3,4,2,1.3];
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
+        
+          alert("Invalid state or county name");
+
+        }  else { 
+          var message = ""
+      
+
+          for (var i = 0; i < 12; i++) {
+              message = message + sevKey[i] +": "+ sevValue[i] +"\n"
+          }
+          var arr = sevValue;
+          const arrMax = arr => Math.max(...arr);
+          const arrAvg = arr => arr.reduce((a,b) => a + b, 0)
+          const arrMin = arr => Math.min(...arr);
+
+          message = message + "Min: " + arrMin(arr) + "\nMax: " + arrMax(arr) + "\nAvg: "+arrAvg(arr);
+            alert(message);
+     
+        }
+          
+     
+        
+        
+
+
+      }
+
       function predictionClick() {
       
         var temp = document.getElementById("temperature").value;
@@ -225,7 +261,7 @@ const MapChart = ({months}) => {
         <option selected="selected">NO</option> 
         </select> 
         </label>
-        
+        <Button variant="contained" onClick={severityClick}>Avg Severity</Button>
     </form>
     <form>
     <label>

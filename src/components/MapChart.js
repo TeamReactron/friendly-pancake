@@ -111,7 +111,7 @@ const MapChart = ({months}) => {
 
           var toatl_count = Math.round(Math.random()*300 + 5); 
 
-          var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date
+          var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date + "\nWind Speed: "+windspeed
              +"\nSeverity: " + severity + "\nStopSign: " + stopsign + "\nBump: " + bump
               + "\nAirport Code: "+airportcode + "\nCrossing: "+crossing+ "\nJunction: "+junction
               + "\nNo Exit: " + noexit + "\nRailway: " + railway + "\nTraffic Calming: "+calming

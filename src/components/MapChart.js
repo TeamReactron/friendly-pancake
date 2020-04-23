@@ -56,7 +56,7 @@ const MapChart = ({months}) => {
         showDate.setMonth(showDate.getMonth() + months);
         if (showDate <= new Date('2018-10-24')) {
           setCSVName('/Oct24.csv');
-          console.log(csvName);
+          //console.log(csvName);
         } else {
           setCSVName('/employee_file.csv');
           console.log(csvName);

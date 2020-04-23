@@ -62,7 +62,7 @@ def queryCountWithParam(arr):
 def queryCountyCountByTimeInterval(county, date1, date2):
   myquery = { 
     "Weather_Timestamp_Date": {"$gt": '2018-09-12', "$lt": '2018-10-12'}, 
-    'City': "Reynoldsburg"
+    'County': county}
   return accidentCollection.find(myquery)
 
 
@@ -75,7 +75,7 @@ def queryContyCountMonthly(county, year):
     monthData = accidentCollection.aggregate([
       {
         '$match': {
-          County: 'Fulton', 
+          County: county, 
           Weather_Timestamp_Year: year, 
           Weather_Timestamp_Month: month}
       },

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const data = [
   {
@@ -44,19 +46,51 @@ const data = [
 ]
 
 const Graph = () => {
+
+  const style = {
+    marginTop: '50px',
+    marginBottom: '10px',
+    marginRight: '5px',
+    marginLeft: '5px'
+  }
+  const [county, setCounty] = useState('');
+  const [state, setState] = useState('');
+  const [show, setShow] = useState(false);
+  const [year, setYear] = useState(0);
+
+  const handleCountyChange = event => {
+    setCounty(event.target.value);
+  }
+
+  const handleStateChange = event => {
+    setState(event.target.value);
+  }
+
+  const handleYearChange = event => {
+    setYear(event.target.value);
+  }
+
+  const showClick = () => {
+    setShow(true);
+  }
+  
   return (
     <div id='root'>
-      <Typography color="textSecondary" gutterBottom>
-        Fulton county accidents line graph
-      </Typography>
-      <LineChart width={700} height={300} data={data} margin={{ top: 5, right: 30, left: 30, bottom: 20 }}>
+      <TextField id='textinput'label="State" style={style} onChange={handleStateChange}/>
+      <TextField id='textinput'label="County" style={style} onChange={handleCountyChange}/>
+      <TextField id='textinput'label="Year" style={style} onChange={handleYearChange}/>
+      <Button variant="contained" style={style} onClick={showClick}>Show</Button>
+      {show && <Typography color="textSecondary" gutterBottom>
+        {county} county accidents line graph
+      </Typography>}
+      {show && <LineChart width={700} height={300} data={data} margin={{ top: 5, right: 30, left: 30, bottom: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey='month' />
         <YAxis margin={{ top: 5, right: 30, left: 20, bottom: 20 }}/>
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey="accidents" stroke="#8884d8" />
-      </LineChart>
+      </LineChart>}
     </div>
   );
 }

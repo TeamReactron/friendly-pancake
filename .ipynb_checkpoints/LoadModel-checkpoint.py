@@ -3,7 +3,7 @@
 
 # In[1]:
 
-
+import u
 import pandas.util.testing as tm
 import pandas as pd
 import numpy as np
@@ -12,7 +12,6 @@ import seaborn as sns
 import json
 import os
 import pickle
-import requests
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -28,7 +27,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_curve, auc
 import folium
 from folium.plugins import HeatMap
-from flask import request
 
 
 # In[30]:
@@ -40,14 +38,13 @@ def main(data):
 
 
 if __name__ == '__main__':
-    temp = request.GET.getlist('temp')
-    humi = request.GET.getlist('humi')
+    stat = request.GET.getlist('stat')
     loaded_model = pickle.load(open('finalized_model.sav', 'rb'))
     df_sel = pd.read_csv('df_sel.csv')
     target='Severity'
     df_sel=df_sel.drop(target, axis=1)
-    df_sel['Temperature(F)'] = temp
-    df_sel['Humidity(%)'] = humi
+    df_sel['Temperature(F)'] = 0
+    df_sel['Humidity(%)'] = 0
     df_sel['Visibility(mi)'] = 0
     y_pred= loaded_model.predict(df_sel)
     df_sel['Severity']=y_pred

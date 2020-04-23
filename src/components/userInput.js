@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import $ from 'jquery';
 
 
 const UserInput = ({countyCallBack}) => {
@@ -126,10 +127,20 @@ const UserInput = ({countyCallBack}) => {
     function predictionClick() {
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
-        var county = document.getElementById("county").value;;
-        var state = document.getElementById("state").value;;
+        var county = document.getElementById("county").value;
+        var state = document.getElementById("state").value;
         if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {  
-          alert("Invalid state or county name");
+          // alert("Invalid state or county name");
+          $.ajax({
+              url: "LoadModel.py",
+              type: 'GET',
+              data : { 'temp': temp,
+              'humi': humi
+                },
+                success : function(data){},
+            }).done(function() {
+             alert('finished python script');;
+            });
         }  else {
             // need to pass parameters to ML 
             window.open('hmap.html')

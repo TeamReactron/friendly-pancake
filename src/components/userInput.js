@@ -102,7 +102,7 @@ const UserInput = ({countyCallBack}) => {
         }
     }
 
-    function searchClick(){
+    function submitClick(){
         var county = document.getElementById("county").value;;
         var state = document.getElementById("state").value;;
         if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
@@ -181,12 +181,12 @@ const UserInput = ({countyCallBack}) => {
               Get total number of accidents
             </Typography>
             <form>
-              <TextField id='textinput'label="State" onChange={event => handleStateChange(event)}/>
-              <TextField id='textinput'label="County" onChange={handleCountyChange}/>
-              <TextField id='textinput' label="Year" />
-              <TextField id='textinput'label="Month" />
-              <TextField id='textinput'label="Day" />
-              <TextField id='textinput'label="WindowSpeed" />
+              <TextField id='textinput'label="State" id = "state" onChange={event => handleStateChange(event)}/>
+              <TextField id='textinput'label="County" id = "county" onChange={handleCountyChange}/>
+              <TextField id='textinput' label="Year" id = "year" />
+              <TextField id='textinput'label="Month" id = "month" />
+              <TextField id='textinput'label="Day" id = "day"/>
+              <TextField id='textinput'label="WindSpeed" id = "windspeed" />
             </form>
             <label>Severity:
                 <select id="severity-dropdown" >
@@ -273,7 +273,7 @@ const UserInput = ({countyCallBack}) => {
         </select> 
         </label>
 
-        <Button variant="contained" onClick={searchClick}>Submit</Button>
+        <Button variant="contained" onClick={submitClick}>Submit</Button>
     </form>
     <form method="post">
         <TextField label="Humidity" type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" onChange={handleHumidityChange}/>

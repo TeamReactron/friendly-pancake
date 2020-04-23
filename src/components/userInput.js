@@ -55,7 +55,12 @@ const UserInput = ({countyCallBack}) => {
     }
 
     const handleCountyChange = event => {
+        setCounty(event.target.value);
         countyCallBack(event.target.value);
+    }
+
+    const handleStateChange = event => {
+        setState(event.target.value);
     }
 
     const handleSeverityChange = event => {
@@ -124,10 +129,8 @@ const UserInput = ({countyCallBack}) => {
     }
 
     function predictionClick() {
-        var temp = document.getElementById("temperature").value;
-        var humi = document.getElementById("humidity").value;
-        var county = document.getElementById("county").value;;
-        var state = document.getElementById("state").value;;
+        console.log(county);
+        console.log(state);
         if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {  
           alert("Invalid state or county name");
         }  else {
@@ -142,8 +145,8 @@ const UserInput = ({countyCallBack}) => {
               Get total number of accidents
             </Typography>
             <form>
-              <TextField id='textinput'label="State" />
-              <TextField id='textinput'label="County" onChange={event => handleCountyChange(event)}/>
+              <TextField id='textinput'label="State" onChange={event => handleStateChange(event)}/>
+              <TextField id='textinput'label="County" onChange={handleCountyChange}/>
               <TextField id='textinput' label="Year" />
               <TextField id='textinput'label="Month" />
               <TextField id='textinput'label="Day" />

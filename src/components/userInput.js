@@ -9,8 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import $ from 'jquery';
-// import express from 'express';
-// import response from 'express';
+
 
 
 const UserInput = ({countyCallBack}) => {
@@ -144,6 +143,7 @@ const UserInput = ({countyCallBack}) => {
     function predictionClick() {
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
+<<<<<<< HEAD
         // var county = document.getElementById("county").value;
         // var state = document.getElementById("state").value;
         // console.log(county);
@@ -163,6 +163,23 @@ const UserInput = ({countyCallBack}) => {
                 })}
             ).done(function(temp) {
                 alert('finished python script');
+=======
+        var county = document.getElementById("county").value;
+        var state = document.getElementById("state").value;
+        console.log(county);
+        console.log(state);
+        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {  
+          // alert("Invalid state or county name");
+          $.ajax({
+              url: "LoadModel.py",
+              type: 'GET',
+              data : { 'temp': temp,
+              'humi': humi
+                },
+                success : function(data){},
+            }).done(function() {
+             alert('finished python script');;
+>>>>>>> 0327c9b57a77b0d250e5b797c0f4142e980a9d42
             });
         }  else {
             // need to pass parameters to ML 

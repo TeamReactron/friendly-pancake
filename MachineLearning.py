@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[39]:
+# In[1]:
 
 
 import pandas.util.testing as tm
@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
+import pickle
 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -27,17 +28,17 @@ import folium
 from folium.plugins import HeatMap
 
 
-# In[45]:
-
-# alert("The form was submitted");
-df = pd.read_csv('US_accident_cleaned')
-state='GA'
-
-df_ga=df.loc[df.State==state].copy()
-df_ga.drop('State',axis=1, inplace=True)
+# In[2]:
 
 
-# In[46]:
+df_ga = pd.read_csv('df_ga.csv')
+# state='GA'
+
+# df_ga=df.loc[df.State==state].copy()
+# df_ga.drop('State',axis=1, inplace=True)
+
+
+# In[3]:
 
 
 feature_lst=['TMC','Severity','Start_Lng','Start_Lat','Distance(mi)','Temperature(F)','Humidity(%)','Visibility(mi)']
@@ -46,7 +47,7 @@ df_sel.to_csv('./df_sel.csv',index=False)
 df_sel.info()
 
 
-# In[47]:
+# In[4]:
 
 
 target='Severity'
@@ -57,7 +58,7 @@ X = df_sel.drop(target, axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=21, stratify=y)
 
 
-# In[48]:
+# In[5]:
 
 
 # Random Forest algorithm
@@ -77,8 +78,11 @@ acc=accuracy_score(y_test, y_pred)
 # Model Accuracy, how often is the classifier correct?
 print("[Randon forest algorithm] accuracy_score: {:.3f}.".format(acc))
 
+filename = 'finalized_model.sav'
+pickle.dump(clf, open(filename, 'wb'))
 
-# In[49]:
+
+# In[6]:
 
 
 print(y_pred)
@@ -87,36 +91,20 @@ print(y_pred.shape)
 print(X_test.shape)
 
 
-# In[50]:
+# In[7]:
 
 
 X_test.head(10)
 
 
-# In[51]:
+# In[11]:
 
 
-X_test['Severity']=y_pred
+# X_test['Severity']=y_pred
 df_sel = X_test
 X_test.head(10)
 
 
-# In[52]:
-
-
-traffic_df = df_sel.groupby(['Start_Lng','Start_Lat'])['Severity'].count()
-traffic_df =traffic_df.to_frame()
-traffic_df.columns.values[0]='count1'
-traffic_df = traffic_df.reset_index()
-coor = traffic_df[['Start_Lat','Start_Lng','count1']].values.tolist()
-    
-hmap = folium.Map(location=[min(df_sel['Start_Lat']),min(df_sel['Start_Lng'])], zoom_start=10, )
-hmap.add_child(HeatMap(coor, radius = 5))
-hmap
-
-
-# In[ ]:
-hmap.save('public/hmap.html')
 
 
 

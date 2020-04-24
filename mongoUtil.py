@@ -21,11 +21,13 @@ client = MongoClient('localhost', 27017)
 teleArr = []
 weatherArr = {}
 aveWeatherArr = []
+countyIDArr = []
 
 db = client.accident_database
 accidentCollection = db.accident_collection
 weatherCollection = db.weather_coolection
 countyWeatherCollection = db.countyWeather_collection
+countyIDCollectoin = db.countyID_collection
 
 coll = db.get_collection(
     'test', write_concern=WriteConcern(w=3, wtimeout=1))
@@ -94,46 +96,46 @@ def writeAccidentToMongo(arr):
 
 
 
-def writeWeatherToMongo(arr):
-    if len(arr) > 0:
-        try:
-            db.weatherCollection.bulk_write([
-                # InsertOne({'_id':teleArr[2]}),
-                InsertOne({
-                    'Start_Time': arr[i][4],
-                    'End_Time': arr[i][5],
-                    'Start_Lat': arr[i][6],
-                    'Start_Lng': arr[i][7],
-                    'End_Lat': arr[i][8],
-                    'End_Lng': arr[i][9],
-                    'Distance(mi)': arr[i][10],
-                    'Street': arr[i][13],
-                    'Side': arr[i][14],
-                    'City': arr[i][15],
-                    'County': arr[i][16],
-                    'State': arr[i][17],
-                    'Zipcode': arr[i][18],
-                    'Country': arr[i][19],
-                    'Timezone': arr[i][20],
-                    'Airport_Code': arr[i][21],
-                    'Weather_Timestamp': arr[i][22],
-                    'Temperature(F)': arr[i][23],
-                    'Wind_Chill(F)': arr[i][24],
-                    'Humidity(%)': arr[i][25],
-                    'Pressure(in)': arr[i][26],
-                    'Visibility(mi)': arr[i][27],
-                    'Wind_Direction': arr[i][28],
-                    'Wind_Speed(mph)': arr[i][29],
-                    'Precipitation(in)': arr[i][30],
-                    'Weather_Condition': arr[i][31],
-                    'Sunrise_Sunset': arr[i][45],
-                    'Civil_Twilight': arr[i][46],
-                    'Nautical_Twilight': arr[i][47],
-                    'Astronomical_Twilight': arr[i][48],
-                    })
-                ])
-        except BulkWriteError as bwe:
-            pprint(bwe.details)
+# def writeWeatherToMongo(arr):
+#     if len(arr) > 0:
+#         try:
+#             db.weatherCollection.bulk_write([
+#                 # InsertOne({'_id':teleArr[2]}),
+#                 InsertOne({
+#                     'Start_Time': arr[i][4],
+#                     'End_Time': arr[i][5],
+#                     'Start_Lat': arr[i][6],
+#                     'Start_Lng': arr[i][7],
+#                     'End_Lat': arr[i][8],
+#                     'End_Lng': arr[i][9],
+#                     'Distance(mi)': arr[i][10],
+#                     'Street': arr[i][13],
+#                     'Side': arr[i][14],
+#                     'City': arr[i][15],
+#                     'County': arr[i][16],
+#                     'State': arr[i][17],
+#                     'Zipcode': arr[i][18],
+#                     'Country': arr[i][19],
+#                     'Timezone': arr[i][20],
+#                     'Airport_Code': arr[i][21],
+#                     'Weather_Timestamp': arr[i][22],
+#                     'Temperature(F)': arr[i][23],
+#                     'Wind_Chill(F)': arr[i][24],
+#                     'Humidity(%)': arr[i][25],
+#                     'Pressure(in)': arr[i][26],
+#                     'Visibility(mi)': arr[i][27],
+#                     'Wind_Direction': arr[i][28],
+#                     'Wind_Speed(mph)': arr[i][29],
+#                     'Precipitation(in)': arr[i][30],
+#                     'Weather_Condition': arr[i][31],
+#                     'Sunrise_Sunset': arr[i][45],
+#                     'Civil_Twilight': arr[i][46],
+#                     'Nautical_Twilight': arr[i][47],
+#                     'Astronomical_Twilight': arr[i][48],
+#                     })
+#                 ])
+#         except BulkWriteError as bwe:
+#             pprint(bwe.details)
         # logger.info(f'Loaded {} matches into db')
 
 def writeAveWeatherToMongo(arr):
@@ -156,7 +158,20 @@ def writeAveWeatherToMongo(arr):
             pprint(bwe.details)
         # logger.info(f'Loaded {} matches into db')
 
-
+def writeCountyIDToMongo(arr):
+    if len(arr) > 0:
+        try:
+            db.countyIDCollectoin.bulk_write([
+                # InsertOne({'_id':teleArr[2]}),            
+                InsertOne({
+                    'ID': arr[i][0],
+                    'County': arr[i][1],
+                    }) for i in range(len(arr))
+                ])
+        except BulkWriteError as bwe:
+            pprint(bwe.details)
+        # logger.info(f'Loaded {} matches into db')
+    
 
 
 if __name__ == "__main__":
@@ -166,13 +181,18 @@ if __name__ == "__main__":
     #     api.authenticate()
     #     api.dataset_download_files('sobhanmoosavi/us-accidents',path = dataset_path,unzip=True)
 
-
-    with open('US_Accidents_Dec19.csv') as csv_file:
+    with open('./public/unemployment-by-county-2017.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
+            # county = row[1].split(' ')[0]
+            countyIDArr.append([row[0], row[1].split(' ')[0]])
 
-            # parse accident
-            teleArr.append(row)
+    # with open('US_Accidents_Dec19.csv') as csv_file:
+    #     csv_reader = csv.reader(csv_file, delimiter=',')
+    #     for row in csv_reader:
+
+    #         # parse accident
+    #         teleArr.append(row)
 
             #parse weather
         #     date = row[22].split(' ')[0]
@@ -194,8 +214,9 @@ if __name__ == "__main__":
 
 
 
-    writeAccidentToMongo(teleArr)
-    # writeWeatherToMongo(teleArr)
+    # writeAccidentToMongo(teleArr)
     # writeAveWeatherToMongo(aveWeatherArr)
+    writeCountyIDToMongo(countyIDArr)
     # db.accidentCollection.drop()
     # db.countyWeatherCollection.drop()
+    

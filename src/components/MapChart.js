@@ -17,6 +17,7 @@ import UserInput from './userInput';
 import allStates from "../data/allstates.json";
 import { hu, ro } from "date-fns/locale";
 import { setSeconds } from "date-fns";
+import { getCountyByID } from './test';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 
@@ -78,6 +79,7 @@ const MapChart = ({months}) => {
         {({ geographies }) => 
           geographies.map(geo => {
             const cur = data.find(s => s.id === geo.id);
+            console.log(getCountyByID(geo.id));
             // console.log(data)
             return (
               <Geography

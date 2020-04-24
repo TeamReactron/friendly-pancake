@@ -20,6 +20,7 @@ client.connect(function(err) {
     const accidentCollection = db.collection('accidentCollection')
     const weatherCollection = db.collection('weatherCollection')
     const countyWeatherCollection = db.collection('countyWeatherCollection')
+    const countyIDCollection = db.collection('countyIDCollection');
 
 
 

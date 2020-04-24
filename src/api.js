@@ -8,16 +8,18 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'accident_database';
 const collectionName = 'accident_collection';
 
-// Use connect method to connect to the server
 MongoClient.connect(url, function(err, client) {
-  assert.equal(null, err);
-  console.log("Connected correctly to server");
-
-  const db = client.db(dbName);
-  findDocuments('Fulton', db, function() {
-    client.close();
-  });
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    const db = client.db(dbName);
+    findDocuments('Fulton', db, function(arr) {
+      client.close();
+    });
 });
+
+
+// Use connect method to connect to the server
+
 
 const findDocuments = function(countyName, db, callback) {
     // Get the documents collection

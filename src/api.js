@@ -6,9 +6,11 @@ const url = 'mongodb://localhost:27017';
 
 // Database Name
 const dbName = 'accident_database';
-const collectionName = 'accident_collection';
+const collectionName = 'accidentCollection';
 
-MongoClient.connect(url, function(err, client) {
+const client = new MongoClient(url);
+
+client.connect(function(err) {
     assert.equal(null, err);
     console.log("Connected correctly to server");
     const db = client.db(dbName);

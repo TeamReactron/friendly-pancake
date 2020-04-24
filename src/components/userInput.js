@@ -23,7 +23,6 @@ const UserInput = ({countyCallBack}) => {
     const [severity, setSeverity] = useState(0);
     const [stopSign, setStopSign] = useState(false);
     const [bump, setBump] = useState(false);
-    const [aircode, setAircode] = useState(false);
     const [crossing, setCrossing] = useState(false);
     const [junction, setJunction] = useState(false);
     const [noExit, setNoExit] = useState(false);
@@ -120,7 +119,6 @@ const UserInput = ({countyCallBack}) => {
             var severity = document.querySelector('#severity-dropdown').value;
             var stopsign = document.querySelector('#stopsign-dropdown').value; 
             var bump = document.querySelector('#bump-dropdown').value; 
-            var airportcode = document.querySelector('#airport-dropdown').value; 
             var crossing = document.querySelector('#crossing-dropdown').value;
             var junction = document.querySelector('#junction-dropdown').value; 
             var noexit = document.querySelector('#exit-dropdown').value; 
@@ -132,7 +130,7 @@ const UserInput = ({countyCallBack}) => {
             var toatl_count = Math.round(Math.random()*300 + 5); 
             var message = "State: "+state +"\nCounty: "+ county + "\nDate: "+date + "\nWind Speed: "+windspeed
                 +"\nSeverity: " + severity + "\nStopSign: " + stopsign + "\nBump: " + bump
-                + "\nAirport Code: "+airportcode + "\nCrossing: "+crossing+ "\nJunction: "+junction
+                + "\nCrossing: "+crossing+ "\nJunction: "+junction
                 + "\nNo Exit: " + noexit + "\nRailway: " + railway + "\nTraffic Calming: "+calming
                 + "\n Roundabout: "+roundabout + "\nTaffic Signal: "+signal+ "\nTraffic Loop: " +loop 
                 +"\nTotal Accident Number: " +toatl_count;
@@ -207,13 +205,7 @@ const UserInput = ({countyCallBack}) => {
                   <option selected="selected">YES</option>  
                   <option selected="selected">NO</option> 
                 </select> 
-            </label> 
-            <label>Airport Code:
-      <select required id="airport-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
-        </select> 
-        </label> 
+            </label>
         <label>
         Crossing:
       <select required id="crossing-dropdown" >

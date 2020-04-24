@@ -33,52 +33,61 @@ coll = db.get_collection(
 def writeAccidentToMongo(arr):
     if len(arr) > 0:
         try:
-            db.accidentCollection.bulk_write([
+            for i in range(len(arr)):
+                date = arr[i][22].split(' ')[0]
+                time = arr[i][22].split(' ')[0]
+                year = date.split('-')[0]
+                month = date.split('-')[1]
+                day = date.split('-')[2]
+                db.accidentCollection.bulk_write([
                 # InsertOne({'_id':teleArr[2]}),
-                # date = arr[i][22].split(' ')[0]
-                # time = arr[i][22].split(' ')[0]
-                InsertOne({
-                    'ID': arr[i][0],
-                    'Source': arr[i][1],
-                    'TMC': arr[i][2],
-                    'Severity': arr[i][3],
-                    'Start_Time': arr[i][4],
-                    'End_Time': arr[i][5],
-                    'Start_Lat': arr[i][6],
-                    'Start_Lng': arr[i][7],
-                    'End_Lat': arr[i][8],
-                    'End_Lng': arr[i][9],
-                    'Distance(mi)': arr[i][10],
-                    'Number': arr[i][12],
-                    'Street': arr[i][13],
-                    'Side': arr[i][14],
-                    'City': arr[i][15],
-                    'County': arr[i][16],
-                    'State': arr[i][17],
-                    'Zipcode': arr[i][18],
-                    'Country': arr[i][19],
-                    'Timezone': arr[i][20],
-                    'Airport_Code': arr[i][21],
-                    'Weather_Timestamp_Date': arr[i][22].split(' ')[0],
-                    # 'Weather_Timestamp_Time': arr[i][22].split(' ')[1],
-                    'Amenity': arr[i][32],
-                    'Bump': arr[i][33],
-                    'Crossing': arr[i][34],
-                    'Give_Way': arr[i][35],
-                    'Junction': arr[i][36],
-                    'No_Exit': arr[i][37],
-                    'Railway': arr[i][38],
-                    'Roundabout': arr[i][39],
-                    'Station': arr[i][40],
-                    'Stop': arr[i][41],
-                    'Traffic_Calming': arr[i][42],
-                    'Traffic_Signal': arr[i][43],
-                    'Turning_Loop': arr[i][44],
-                    'Sunrise_Sunset': arr[i][45],
-                    'Civil_Twilight': arr[i][46],
-                    'Nautical_Twilight': arr[i][47],
-                    'Astronomical_Twilight': arr[i][48],
-                    }) for i in range(len(arr))
+
+
+                    InsertOne({
+                        'ID': arr[i][0],
+                        'Source': arr[i][1],
+                        'TMC': arr[i][2],
+                        'Severity': arr[i][3],
+                        'Start_Time': arr[i][4],
+                        'End_Time': arr[i][5],
+                        'Start_Lat': arr[i][6],
+                        'Start_Lng': arr[i][7],
+                        'End_Lat': arr[i][8],
+                        'End_Lng': arr[i][9],
+                        'Distance(mi)': arr[i][10],
+                        'Number': arr[i][12],
+                        'Street': arr[i][13],
+                        'Side': arr[i][14],
+                        'City': arr[i][15],
+                        'County': arr[i][16],
+                        'State': arr[i][17],
+                        'Zipcode': arr[i][18],
+                        'Country': arr[i][19],
+                        'Timezone': arr[i][20],
+                        'Airport_Code': arr[i][21],
+                        'Weather_Timestamp_Date': arr[i][22].split(' ')[0],
+                        'Weather_Timestamp_Year': year,
+                        'Weather_Timestamp_Month': month,
+                        'Weather_Timestamp_Day': day,
+                        # 'Weather_Timestamp_Time': arr[i][22].split(' ')[1],
+                        'Amenity': arr[i][32],
+                        'Bump': arr[i][33],
+                        'Crossing': arr[i][34],
+                        'Give_Way': arr[i][35],
+                        'Junction': arr[i][36],
+                        'No_Exit': arr[i][37],
+                        'Railway': arr[i][38],
+                        'Roundabout': arr[i][39],
+                        'Station': arr[i][40],
+                        'Stop': arr[i][41],
+                        'Traffic_Calming': arr[i][42],
+                        'Traffic_Signal': arr[i][43],
+                        'Turning_Loop': arr[i][44],
+                        'Sunrise_Sunset': arr[i][45],
+                        'Civil_Twilight': arr[i][46],
+                        'Nautical_Twilight': arr[i][47],
+                        'Astronomical_Twilight': arr[i][48],
+                        })
                 ])
         except BulkWriteError as bwe:
             pprint(bwe.details)
@@ -122,7 +131,7 @@ def writeWeatherToMongo(arr):
                     'Civil_Twilight': arr[i][46],
                     'Nautical_Twilight': arr[i][47],
                     'Astronomical_Twilight': arr[i][48],
-                    }) for i in range(len(arr))
+                    })
                 ])
         except BulkWriteError as bwe:
             pprint(bwe.details)
@@ -133,6 +142,7 @@ def writeAveWeatherToMongo(arr):
         try:
             db.countyWeatherCollection.bulk_write([
                 # InsertOne({'_id':teleArr[2]}),
+                
                 InsertOne({
                     'County': arr[i][0],
                     'Date': arr[i][1],
@@ -163,7 +173,6 @@ if __name__ == "__main__":
         for row in csv_reader:
 
             # parse accident
-            # sline = row.split(',')
             teleArr.append(row)
 
             #parse weather
@@ -190,3 +199,4 @@ if __name__ == "__main__":
     # writeWeatherToMongo(teleArr)
     # writeAveWeatherToMongo(aveWeatherArr)
     # db.accidentCollection.drop()
+    # db.countyWeatherCollection.drop()

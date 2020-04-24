@@ -77,9 +77,10 @@ const MapChart = ({months}) => {
     <ComposableMap projection="geoAlbersUsa">
       <Geographies geography={geoUrl}>
         {({ geographies }) => 
-          geographies.map(geo => {
+          geographies.map(async geo => {
             const cur = data.find(s => s.id === geo.id);
-            console.log(getCountyByID(geo.id));
+            let countyName = await getCountyByID(geo.id);
+            console.log(countyName);
             // console.log(data)
             return (
               <Geography

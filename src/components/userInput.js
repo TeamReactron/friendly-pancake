@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import $ from 'jquery';
 
 
+
 const UserInput = ({countyCallBack}) => {
     // ad-hoc query parameter
     const [state, setState] = useState('');
@@ -26,6 +27,16 @@ const UserInput = ({countyCallBack}) => {
     const [crossing, setCrossing] = useState(false);
     const [junction, setJunction] = useState(false);
     const [noExit, setNoExit] = useState(false);
+    // const express = require('express');
+    // const http = require('http');
+    // const router = express.Router();
+    const {spawn} = require('child_process');
+    // const app = express();
+    // const port = 3000;
+    // const pyFile = 'LoadModel.py';
+    // const args = ['path1', 'path2', 'path3'];
+    // args.unshift(pyFile);
+    // const pyspawn = spawn('python3', args);
 
     // ML prediction paramter
     const [humidity, setHumidity] = useState(0);
@@ -91,7 +102,7 @@ const UserInput = ({countyCallBack}) => {
         }
     }
 
-    function searchClick(){
+    function submitClick(){
         var county = document.getElementById("county").value;;
         var state = document.getElementById("state").value;;
         if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
@@ -132,26 +143,36 @@ const UserInput = ({countyCallBack}) => {
     function predictionClick() {
         var temp = document.getElementById("temperature").value;
         var humi = document.getElementById("humidity").value;
-        var county = document.getElementById("county").value;
-        var state = document.getElementById("state").value;
-        console.log(county);
-        console.log(state);
-        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {  
+        // var county = document.getElementById("county").value;
+        // var state = document.getElementById("state").value;
+        // console.log(county);
+        // console.log(state);
+        // if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {  
+        if (1) { 
           // alert("Invalid state or county name");
           $.ajax({
-              url: "LoadModel.py",
-              type: 'GET',
-              data : { 'temp': temp,
+              url: "http://127.0.0.1:5000/",
+              type: 'POST',
+              data : 
+                // temp: $("Humidity").val(), humi: $("Temperature").val()
+                JSON.stringify({
+            'temp': temp,
               'humi': humi
-                },
-                success : function(data){},
-            }).done(function() {
-             alert('finished python script');;
+
+                })}
+            ).done(function(temp) {
+                alert('finished python script');
             });
         }  else {
             // need to pass parameters to ML 
             window.open('hmap.html')
         }
+        var path = require("path");
+        var filename = path.resolve(__dirname, 'desktop','friendly-pancake', 'API', 'hmap.html');
+        window.open('/API/hmap.html');
+        alert(filename);
+
+
     }
 
     return (
@@ -160,12 +181,12 @@ const UserInput = ({countyCallBack}) => {
               Get total number of accidents
             </Typography>
             <form>
-              <TextField id='textinput'label="State" onChange={event => handleStateChange(event)}/>
-              <TextField id='textinput'label="County" onChange={handleCountyChange}/>
-              <TextField id='textinput' label="Year" />
-              <TextField id='textinput'label="Month" />
-              <TextField id='textinput'label="Day" />
-              <TextField id='textinput'label="WindowSpeed" />
+              <TextField id='textinput'label="State" id = "state" onChange={event => handleStateChange(event)}/>
+              <TextField id='textinput'label="County" id = "county" onChange={handleCountyChange}/>
+              <TextField id='textinput' label="Year" id = "year" />
+              <TextField id='textinput'label="Month" id = "month" />
+              <TextField id='textinput'label="Day" id = "day"/>
+              <TextField id='textinput'label="WindSpeed" id = "windspeed" />
             </form>
             <label>Severity:
                 <select id="severity-dropdown" >
@@ -252,9 +273,9 @@ const UserInput = ({countyCallBack}) => {
         </select> 
         </label>
 
-        <Button variant="contained" onClick={searchClick}>Submit</Button>
+        <Button variant="contained" onClick={submitClick}>Submit</Button>
     </form>
-    <form>
+    <form method="post">
         <TextField label="Humidity" type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" onChange={handleHumidityChange}/>
         <TextField label = "Temperature" type="text" name="temperature" id = "temperature" pattern="[0-9]{0,100}" onChange={handleTempChange}/>
         <TextField label = "Distance" type="text" name="distance" id = "distance" onChange={handleDistanceChange}/>

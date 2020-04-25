@@ -109,11 +109,15 @@ const Graph = () => {
   return (
     <div id='root'>
       
-    
+      <form>
       <TextField id='textinput'label="State" style={style} onChange={handleStateChange}/>
       <TextField id='textinput'label="County" style={style} onChange={handleCountyChange}/>
       <TextField id='textinput'label="Year" style={style} onChange={handleYearChange}/>
-      <Button variant="contained" style={style} onClick={showClick}>Show</Button>
+      </form>
+      <label>
+        Get total accident by month graph and severity by month chart:
+      <Button variant="contained" onClick={showClick}>Show</Button>
+      </label>
       <table>
         <tr>
         <td><div class = "column">

@@ -43,6 +43,13 @@ const UserInput = ({countyCallBack}) => {
     const [distance, setDistance] = useState(0);
     const [visbility, setVisbility] = useState(0);
 
+    const style = {
+      marginTop: '50px',
+      marginBottom: '10px',
+      marginRight: '5px',
+      marginLeft: '5px'
+    }
+
     var stateArr = ["AL","GA","OH","AK","AR","FL"];
     var countyArr = ["Dekalb","Fulton","Decatur","Alpharetta"];
 
@@ -78,28 +85,28 @@ const UserInput = ({countyCallBack}) => {
         setSeverity(event.target.value);
     }
 
-    function severityClick() {
-        var county = document.getElementById("county").value;;
-        var state = document.getElementById("state").value;;
-        // var severityMap = {"January":2.2,"Feburary":3,"March":4.3,"April":3.5,"May":1.4,
-        //   "June":1.5,"July":4.3,"August":5,"September":2,"October":4,"November":3,"December":2};
-        var sevKey = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var sevValue = [1.5,3.4,3,4,3.5,2,4.2,1,3,4,2,1.3];
-        if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
-          alert("Invalid state or county name");
-        } else { 
-            var message = ""
-            for (var i = 0; i < 12; i++) {
-                message = message + sevKey[i] +": "+ sevValue[i] +"\n"
-            }
-            var arr = sevValue;
-            const arrMax = arr => Math.max(...arr);
-            const arrAvg = arr => arr.reduce((a,b) => a + b, 0)
-            const arrMin = arr => Math.min(...arr);
-            message = message + "Min: " + arrMin(arr) + "\nMax: " + arrMax(arr) + "\nAvg: "+arrAvg(arr);
-            alert(message);
-        }
-    }
+    // function severityClick() {
+    //     var county = document.getElementById("county").value;;
+    //     var state = document.getElementById("state").value;;
+    //     // var severityMap = {"January":2.2,"Feburary":3,"March":4.3,"April":3.5,"May":1.4,
+    //     //   "June":1.5,"July":4.3,"August":5,"September":2,"October":4,"November":3,"December":2};
+    //     var sevKey = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    //     var sevValue = [1.5,3.4,3,4,3.5,2,4.2,1,3,4,2,1.3];
+    //     if (!(countyArr.includes(county)) || !(stateArr.includes(state))) {
+    //       alert("Invalid state or county name");
+    //     } else { 
+    //         var message = ""
+    //         for (var i = 0; i < 12; i++) {
+    //             message = message + sevKey[i] +": "+ sevValue[i] +"\n"
+    //         }
+    //         var arr = sevValue;
+    //         const arrMax = arr => Math.max(...arr);
+    //         const arrAvg = arr => arr.reduce((a,b) => a + b, 0)
+    //         const arrMin = arr => Math.min(...arr);
+    //         message = message + "Min: " + arrMin(arr) + "\nMax: " + arrMax(arr) + "\nAvg: "+arrAvg(arr);
+    //         alert(message);
+    //     }
+    // }
 
     function submitClick(){
         var county = document.getElementById("county").value;;
@@ -175,9 +182,6 @@ const UserInput = ({countyCallBack}) => {
 
     return (
         <div>
-            <Typography color="textSecondary" gutterBottom>
-              Get total number of accidents
-            </Typography>
             <form>
               <TextField id='textinput'label="State" id = "state" onChange={event => handleStateChange(event)}/>
               <TextField id='textinput'label="County" id = "county" onChange={handleCountyChange}/>
@@ -220,9 +224,7 @@ const UserInput = ({countyCallBack}) => {
         <option selected="selected">NO</option> 
         </select> 
         </label>
-        <Button variant="contained" onClick={severityClick}>Avg Severity</Button>
-        <form>
-    <label>
+        <label>
         No Exit:
       <select required id="exit-dropdown" >
         <option selected="selected">YES</option>  
@@ -236,6 +238,10 @@ const UserInput = ({countyCallBack}) => {
         <option selected="selected">NO</option> 
         </select> 
         </label>
+        {/* <Button variant="contained" onClick={severityClick}>Avg Severity</Button> */}
+
+    <form>
+    
         <label>
         Traffic Calming:
       <select required id="calming-dropdown" >
@@ -263,18 +269,26 @@ const UserInput = ({countyCallBack}) => {
         <option selected="selected">YES</option>  
         <option selected="selected">NO</option> 
         </select> 
-        </label>
-
-        <Button variant="contained" onClick={submitClick}>Submit</Button>
+        </label>   
     </form>
-    <form method="post">
+    <label>
+    Get total number of accidents based on all above parameters:
+    {/* <Typography color="textSecondary" gutterBottom>
+              Get total number of accidents
+            </Typography> */}
+    <Button variant="contained" onClick={submitClick}>Submit</Button>
+    </label>
+    <form method="post" style={style}>
         <TextField label="Humidity" type="text" name="humidity" id = "humidity" pattern="[0-9]{0,100}" onChange={handleHumidityChange}/>
         <TextField label = "Temperature" type="text" name="temperature" id = "temperature" pattern="[0-9]{0,100}" onChange={handleTempChange}/>
         <TextField label = "Distance" type="text" name="distance" id = "distance" onChange={handleDistanceChange}/>
         <TextField label = "Visibility" type="text" name="visibility" id="visibility" onChange={handleVisibilityChange}/>
-       <Button id='predictionbutton' variant="contained" onClick={predictionClick}>Predict</Button>
     </form> 
-        </div>
+       <label>
+          Get ML prediction based on weather conditions (Humidity, Temperature, Distance, Visibility):
+       <Button id='predictionbutton' variant="contained" onClick={predictionClick}>Predict</Button>
+       </label>
+  </div>
     )
 
 }

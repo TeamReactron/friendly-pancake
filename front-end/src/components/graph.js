@@ -115,7 +115,7 @@ const Graph = () => {
       <TextField id='textinput'label="Year" style={style} onChange={handleYearChange}/>
       </form>
       <label>
-        Get total accident by month graph and severity by month chart:
+        Get monthly total number of accidents and average severity displayed with graph:
       <Button variant="contained" onClick={showClick}>Show</Button>
       </label>
       <table>

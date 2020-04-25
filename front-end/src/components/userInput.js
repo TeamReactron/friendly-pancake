@@ -200,42 +200,42 @@ const UserInput = ({countyCallBack}) => {
             </label>
             <label>StopSign:
               <select id="stopsign-dropdown" >
-                  <option selected="selected">YES</option>  
-                  <option selected="selected">NO</option> 
+                  <option selected="selected">TRUE</option>  
+                  <option selected="selected">FALSE</option> 
              </select> 
             </label> 
             <label>Bump:
                 <select required id="bump-dropdown" >
-                  <option selected="selected">YES</option>  
-                  <option selected="selected">NO</option> 
+                  <option selected="selected">TRUE</option>  
+                  <option selected="selected">FALSE</option> 
                 </select> 
             </label>
         <label>
         Crossing:
       <select required id="crossing-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label> 
         <label>
         Junction:
       <select required id="junction-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label>
         <label>
         No Exit:
       <select required id="exit-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label> 
         <label>
         Railway:
       <select required id="railway-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label>
         {/* <Button variant="contained" onClick={severityClick}>Avg Severity</Button> */}
@@ -245,29 +245,29 @@ const UserInput = ({countyCallBack}) => {
         <label>
         Traffic Calming:
       <select required id="calming-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label>
         <label>
         Roundabout:
       <select required id="roundabout-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label>
         <label>
         Traffic Signal:
       <select required id="signal-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label>
         <label>
         Traffic Loop:
       <select required id="loop-dropdown" >
-        <option selected="selected">YES</option>  
-        <option selected="selected">NO</option> 
+        <option selected="selected">TRUE</option>  
+        <option selected="selected">FALSE</option> 
         </select> 
         </label>   
     </form>

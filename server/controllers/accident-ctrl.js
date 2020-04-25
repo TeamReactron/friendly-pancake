@@ -134,5 +134,5 @@ queryContyCountMonthly(county, year) = async (req, res) => {
 
 
 module.exports = {
-    getAccidents,
+    getAccidents, queryForHeatMap, queryCountWithParam, queryCountyCountByTimeInterval, queryContyCountMonthly
 }

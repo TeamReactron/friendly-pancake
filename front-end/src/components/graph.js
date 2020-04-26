@@ -85,6 +85,8 @@ const Graph = () => {
   const [state, setState] = useState('');
   const [show, setShow] = useState(false);
   const [year, setYear] = useState(0);
+  const [totalData, setTotalData] = useState([]);
+
 
   const handleCountyChange = event => {
     setCounty(event.target.value);
@@ -99,7 +101,48 @@ const Graph = () => {
   }
 
   const showClick = async () => {
-    console.log(1);
+    await api.queryContyCountMonthly(county, year).then(result => {
+      console.log(result.data.data);
+      let total = [];
+      for (let i = 0; i < result.data.data.length; i++) {
+        let ele = result.data.data[i];
+        total.push({
+          'month': ele._id,
+          'accidents': ele.total,
+          'severity': ele.avgSeverity
+        })
+      }
+      total.sort((a, b) => (a.month > b.month) ? 1 : -1);
+      for (let i = 0; i < total.length; i++) {
+        let ele = total[i];
+        if (ele.month === '01') {
+          ele.month = 'Jan';
+        } else if (ele.month === '02') {
+          ele.month = 'Feb';
+        } else if (ele.month === '03') {
+          ele.month = 'Mar';
+        } else if (ele.month === '04') {
+          ele.month = 'Apr';
+        } else if (ele.month === '05') {
+          ele.month = 'May';
+        } else if (ele.month === '06') {
+          ele.month = 'Jun';
+        } else if (ele.month === '07') {
+          ele.month = 'Jul';
+        } else if (ele.month === '08') {
+          ele.month = 'Aug';
+        } else if (ele.month === '09') {
+          ele.month = 'Sep';
+        } else if (ele.month === '10') {
+          ele.month = 'Oct';
+        } else if (ele.month === '11') {
+          ele.month = 'Nov';
+        } else if (ele.month === '12') {
+          ele.month = 'Dec';
+        } 
+      }
+      setTotalData(total);
+    })
     await api.getAllCounties().then(counties => {
       console.log(counties);
     })
@@ -124,7 +167,7 @@ const Graph = () => {
       {show && <Typography color="textSecondary" gutterBottom>
         {county} county accidents line graph
       </Typography>}
-      {show && <LineChart width={500} height={300} data={data} margin={{ top: 5, right: 30, left: 30, bottom: 20 }}>
+      {show && <LineChart width={500} height={300} data={totalData} margin={{ top: 5, right: 30, left: 30, bottom: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey='month' />
         <YAxis margin={{ top: 5, right: 30, left: 20, bottom: 20 }}/>
@@ -141,7 +184,7 @@ const Graph = () => {
       {show && <Typography color="textSecondary" gutterBottom>
         {message}
       </Typography>}
-      {show &&<BarChart width={500} height={280} data={data2}
+      {show &&<BarChart width={500} height={280} data={totalData}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
        <CartesianGrid strokeDasharray="3 3"/>
        <XAxis dataKey="month"/>

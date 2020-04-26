@@ -48,27 +48,24 @@ queryForHeatMap = async (req, res) => {
 // query the number of accidents that satisfies all given parameters
 // arr = ['Bump': '', 'Crossing': '', 'Giveway': '', etc.]
 queryCountWithParam = async (req, res) => {
-    console.log(req.body);
-    var arr = new Array();
-
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] == '') {
-            arr[i] = ['TRUE', 'FLASE']
-        }
-    }   
-    var myquery = { "Weather_Timestamp_Date": arr[0], 'County': arr[1],
-                'Bump': {$in: arr[2]},
-                'Crossing': {$in: arr[3]},
-                'Give_Way': {$in: arr[4]},
-                'Junction': {$in: arr[5]},
-                'No_Exit': {$in: arr[6]},
-                'Railway': {$in: arr[7]},
-                'Roundabout': {$in: arr[8]},
-                'Station': {$in: arr[9]},
-                'Stop': {$in: arr[10]},
-                'Traffic_Calming': {$in: arr[11]},
-                'Traffic_Signal': {$in: arr[12]},
-                'Turning_Loop': {$in: arr[13]}}
+    let date = req.params.date;
+    let county = req.params.county;
+    let state = req.params.state;
+    let bump = req.params.bump;
+    let crossing = req.params.crossing;
+    let junction = req.params.junction;
+    let noExit = req.params.noExit;
+    let stop = req.params.stop;
+    let trafficSignal = req.params.trafficSignal;
+    var myquery = { "Weather_Timestamp_Date": date, 
+                'County': county,
+                'State': state,
+                'Bump': bump,
+                'Crossing': crossing,
+                'Junction': junction,
+                'No_Exit': noExit,
+                'Stop': stop,
+                'Traffic_Signal': trafficSignal}
     await Accident.find(myquery, (err, accidents) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
@@ -108,37 +105,26 @@ queryCountyCountByTimeInterval = async (req, res) => {
 queryContyCountMonthly = async (req, res) => {
     var county = req.params.county;
     var year = req.params.year;
-    var result = [];
-    var accidentData = {};
-    var month = 11;
-    //while (month < 13) {
-        await Accident.aggregate([
-            {
-              '$match': {
+    await Accident.aggregate([
+        {
+            '$match': {
                 County: county, 
-                Weather_Timestamp_Year: year, 
-                Weather_Timestamp_Month: month}
-            },
-            {
-              '$group': {
-                _id: '$County', total:{'$sum':1}, 
-                avgSeverity: {'$avg': '$Severity'}, 
+                Weather_Timestamp_Year: year
+            }
+        },
+        {
+            '$group': {
+                _id: '$Weather_Timestamp_Month', total:{'$sum':1}, 
+                avgSeverity: {'$avg': {'$toInt':'$Severity'}}, 
                 minSeverity: {'$min': '$Severity'}, 
                 maxSeverity: {'$max': '$Severity'}}
-            }], (err, accidents) => {
+            }
+        ], (err, accidents) => {
             if (err) {
                 return res.status(400).json({ success: false, error: err })
             }
-            accidentData.data = accidents
-            accidentData.month = month
-            result.push(accidentData);
-            console.log(result);
-            return res.status(200).json({success: true, data: result});
-            //return res.status(200).json({ success: true, data: accidents })
-        }).catch(err => console.log(err));
-        //month++;
-    //}
-    
+            return res.status(200).json({ success: true, data: accidents })
+    }).catch(err => console.log(err));
 }
 
 

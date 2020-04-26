@@ -128,13 +128,14 @@ const UserInput = ({countyCallBack}) => {
     async function submitClick(){
       let param_date = '';
       param_date += year + '-' + month + '-' + day;
-      await api.queryCountWithParam(param_date, county, state, bump, crossing, junction, noExit, stopSign, signal).then(result => {
-        if (result.status === 200) {
+      try {
+        await api.queryCountWithParam(param_date, county, state, bump, crossing, junction, noExit, stopSign, signal).then(result => {
           alert(result.data.data.length)
-        } else  {
-          alert(result.data.error)
-        }
-      })
+        }) 
+      } catch(error) {
+        alert(error);
+      }
+      
 
     }
 

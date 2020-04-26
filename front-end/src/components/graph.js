@@ -68,10 +68,10 @@ var arr = sevValue;
 const arrMax = arr => Math.max(...arr);
 const arrAvg = arr => arr.reduce((a,b) => a + b, 0)
 const arrMin = arr => Math.min(...arr);
-const min = arrMin(arr);
-const max = arrMax(arr);
-const avg = arrAvg(arr);
-const message ="Min: " + arrMin(arr) + "\nMax: " + arrMax(arr) + "\nAvg: "+arrAvg(arr);
+
+var min = 5
+var max = 0
+var ave = 0
 
 const Graph = () => {
 
@@ -106,6 +106,13 @@ const Graph = () => {
       let total = [];
       for (let i = 0; i < result.data.data.length; i++) {
         let ele = result.data.data[i];
+        if (ele.avgSeverity < min) {
+          min = ele.avgSeverity
+        }
+        if (ele.avgSeverity > max) {
+          max = ele.avgSeverity
+        }
+        ave += ele.avgSeverity
         total.push({
           'month': ele._id,
           'accidents': ele.total,
@@ -149,6 +156,8 @@ const Graph = () => {
     setShow(true);
   }
   
+  const message ="Min: " + Number(min).toFixed(2) + "\nMax: " + Number(max).toFixed(2) + "\nAvg: "+ Number(ave/12).toFixed(2);
+
   return (
     <div id='root'>
       

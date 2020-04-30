@@ -67,3 +67,8 @@ Feel free to include images of your application’s working in Readme/Instructio
 * click show button, console will print all counties and ID
 * http://localhost:4000/counties will show all counties with ID
 * http://localhost:4000/accidents will show fulton accidents but very slow
+
+Code Documentation and References：
+https://codesandbox.io/s/usa-counties-choropleth-map-quantile-2gi36?from-embed：refrence on how to draw heat map
+https://recharts.org/en-US/: refrence on how to draw graph, chart ... visualization
+https://github.com/kitze/react-electron-example: refrenece on how to set up Electron + React application

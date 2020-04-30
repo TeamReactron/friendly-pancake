@@ -69,6 +69,6 @@ Feel free to include images of your application’s working in Readme/Instructio
 * http://localhost:4000/accidents will show fulton accidents but very slow
 
 Code Documentation and References：
-https://codesandbox.io/s/usa-counties-choropleth-map-quantile-2gi36?from-embed：refrence on how to draw heat map
-https://recharts.org/en-US/: refrence on how to draw graph, chart ... visualization
-https://github.com/kitze/react-electron-example: refrenece on how to set up Electron + React application
+https://codesandbox.io/s/usa-counties-choropleth-map-quantile-2gi36?from-embed：reference on how to draw heat map
+https://recharts.org/en-US/: reference on how to draw graph, chart ... visualization
+https://github.com/kitze/react-electron-example: referenece on how to set up Electron + React application

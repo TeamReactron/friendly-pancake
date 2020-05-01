@@ -8,67 +8,6 @@ import Button from '@material-ui/core/Button';
 import api from '../api'
 import  { Component } from 'react'
 
-
-
-const data = [
-  {
-    'month': 'Jan', 'accidents': 5
-  },
-  {
-    'month': "Feb", 'accidents': 6
-  },
-  {
-    'month': 'Mar', 'accidents': 3 
-  },
-  {
-    'month': 'Apr', 'accidents': 9 
-  },
-  {
-    'month': 'May', 'accidents': 4 
-  },
-  {
-    'month': 'Jun', 'accidents': 3 
-  },
-  {
-    'month': 'Jul', 'accidents': 10
-  },
-  {
-    'month': 'Aug', 'accidents': 11 
-  },
-  {
-    'month': 'Sep', 'accidents': 14 
-  },
-  {
-    'month': 'Oct', 'accidents': 5 
-  },
-  {
-    'month': 'Nov', 'accidents': 7 
-  },
-  {
-    'month': 'Dec', 'accidents': 10 
-  }
-]
-
-const data2 = [
-  {month: 'Jan',  severity: 1.5},
-  {month: 'Feb',  severity: 3.4},
-  {month: 'Mar',   severity: 3},
-  {month: 'Apr',  severity: 4},
-  {month: 'May',   severity: 3.5},
-  {month: 'Jun',   severity: 2},
-  {month: 'Jul',   severity: 4.2},
-  {month: 'Aug',   severity: 1},
-  {month: 'Sep',  severity: 3},
-  {month: 'Oct',   severity: 4},
-  {month: 'Nov',  severity: 2},
-  {month: 'Dec',  severity: 1.3},
-];
-const sevValue = [1.5,3.4,3,4,3.5,2,4.2,1,3,4,2,1.3];
-var arr = sevValue;
-const arrMax = arr => Math.max(...arr);
-const arrAvg = arr => arr.reduce((a,b) => a + b, 0)
-const arrMin = arr => Math.min(...arr);
-
 var min = 5
 var max = 0
 var ave = 0

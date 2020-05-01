@@ -8,9 +8,11 @@ import Button from '@material-ui/core/Button';
 import api from '../api'
 import  { Component } from 'react'
 
-var min = 5
-var max = 0
-var ave = 0
+const sevValue = [1.5,3.4,3,4,3.5,2,4.2,1,3,4,2,1.3];
+var arr = sevValue;
+const arrMax = arr => Math.max(...arr);
+const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
+const arrMin = arr => Math.min(...arr);
 
 const Graph = () => {
 
@@ -25,6 +27,7 @@ const Graph = () => {
   const [show, setShow] = useState(false);
   const [year, setYear] = useState(0);
   const [totalData, setTotalData] = useState([]);
+  const [message, setMessage] = useState('');
 
 
   const handleCountyChange = event => {
@@ -43,21 +46,18 @@ const Graph = () => {
     await api.queryContyCountMonthly(county, year).then(result => {
       console.log(result.data.data);
       let total = [];
+      let severityArr = [];
       for (let i = 0; i < result.data.data.length; i++) {
         let ele = result.data.data[i];
-        if (ele.avgSeverity < min) {
-          min = ele.avgSeverity
-        }
-        if (ele.avgSeverity > max) {
-          max = ele.avgSeverity
-        }
-        ave += ele.avgSeverity
+        severityArr.push(ele.avgSeverity);
         total.push({
           'month': ele._id,
           'accidents': ele.total,
           'severity': ele.avgSeverity
         })
       }
+      let msg = "Min: " + Number(arrMin(severityArr)).toFixed(2) + "\nMax: " + Number(arrMax(severityArr)).toFixed(2) + "\nAvg: "+ Number(arrAvg(severityArr)).toFixed(2)
+      setMessage(msg)
       total.sort((a, b) => (a.month > b.month) ? 1 : -1);
       for (let i = 0; i < total.length; i++) {
         let ele = total[i];
@@ -94,8 +94,6 @@ const Graph = () => {
     })
     setShow(true);
   }
-  
-  const message ="Min: " + Number(min).toFixed(2) + "\nMax: " + Number(max).toFixed(2) + "\nAvg: "+ Number(ave/12).toFixed(2);
 
   return (
     <div id='root'>

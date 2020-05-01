@@ -133,7 +133,7 @@ const UserInput = ({countyCallBack}) => {
           alert(result.data.data.length)
         }) 
       } catch(error) {
-        alert(error);
+        alert('404 accidents not found!');
       }
       
 

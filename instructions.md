@@ -6,7 +6,7 @@ We are using MongoDB. Link to documentation: https://docs.mongodb.com
 
 
 ### How do we download the data you used for your project? Please do NOT submit ALL the data with your code (Submitting a very small portion (< 5 MB) so that we can run the demo might be okay)
-
+kaggle authentication api token: https://www.kaggle.com/docs/api 
 
 
 ### How do we load this data into the database system? 
@@ -22,7 +22,7 @@ Yes, run python3 front-end/mongoUtil.py
 
 
 ### If you are benchmarking different database systems, did you make changes to the configurations? If yes, what are they?
-
+N/A
 
 
 ### If you are generating your own data, how do we generate it?
@@ -41,6 +41,7 @@ For front-end and server connection, we used JavaScript
 
 They are under requirments.txt. 
 under front-end folder run $ pip install -r requirements.txt
+run npm install
 
 For machine learning part, we used sklearn to train model; we used pandas and numpy for data framewokr; we used folium to build interactive heatmap; we also used flask to run a web session for machine learning code. 
 
@@ -70,12 +71,39 @@ For the machine learning part, you need to train the model locally, because the 
 ### If you used some online code, what changes did you make to the code?
 
 ### Give a list of files in your submission which are written by you.
-MachineLearning.py
-LoadModel.py
-api.py
-DataCleaning.ipynb
-DataPreparation.ipynb
-DataPreprocess.ipynb
+front-end/main.py
+front-end/mongoUtil.py
+front-end/queryMongo.py
+front-end/README.md
+instructions.md
+front-end/src/api.js
+front-end/src/api2.js
+front-end/src/App.css
+front-end/src/index.css
+front-end/src/index.js
+front-end/src/main.js
+front-end/src/components/MapChart.js
+front-end/src/components/ML.js
+front-end/src/components/MongoQuery.js
+front-end/src/components/test.js
+front-end/src/components/Timeline.js
+front-end/src/components/userInput.js
+front-end/src/components/Workspace.js
+front-end/server/index.js
+front-end/server/controllers/accident-ctrl.js
+front-end/server/controllers/county-ctrl.js
+front-end/server/db/index.js
+front-end/server/models/accidentModel.js
+front-end/server/models/countyModel.js
+front-end/server/routes/accident-router.js
+front-end/server/routes/county-router.js
+front-end/public/API/MachineLearning.py
+front-end/public/API/LoadModel.py
+front-end/src/components/LoadModel.py
+front-end/public/API/api.py
+front-end/DataCleaning.ipynb
+front-end/DataPreparation.ipynb
+front-end/DataPreprocess.ipynb
 
 
 

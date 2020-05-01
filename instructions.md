@@ -65,6 +65,13 @@ Did you use some code from GitHub or other sources? If yes provide the link.
 If you used some online code, what changes did you make to the code?
 
 Give a list of files in your submission which are written by you.
+MachineLearning.py
+LoadModel.py
+api.py
+DataCleaning.ipynb
+DataPreparation.ipynb
+DataPreprocess.ipynb
+
 
 
 Feel free to include images of your application’s working in Readme/Instructions file.

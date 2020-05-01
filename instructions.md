@@ -39,26 +39,24 @@ For front-end and server connection, we used JavaScript
 
 ### List the third-party libraries needed to execute your code and how do we install them (For ex. MySQL/neo4j connector for Python)
 
-They are under requirments.txt. 
-under front-end folder run $ pip install -r requirements.txt
-run npm install
+They are under requirments.txt.   
+under front-end folder run $ pip install -r requirements.txt  
+run npm install  
 
 For machine learning part, we used sklearn to train model; we used pandas and numpy for data framewokr; we used folium to build interactive heatmap; we also used flask to run a web session for machine learning code. 
 
 
 ### If you have a GUI, how do we run it?
 
-For machine learning part, you need to open another terminal for new flask session: 
-First, in the new terminal, go to front-end/public/API document in terminal, run "export FLASK_APP=api.py" to wrap the code in a flask app. 
-Second, in the new terminal, run "flask run", to start running flask. 
-Third, in the application interface, find the "Get ML prediction" input box, and enter all parameters in boxes. Then, click "predict". The app will open a new window (sometimes behind the window of the app) which shows an interactive map of the target area. 
+For machine learning part, you need to open another terminal for new flask session:   
+First, in the new terminal, go to front-end/public/API document in terminal, run "export FLASK_APP=api.py" to wrap the code in a flask app.   
+Second, in the new terminal, run "flask run", to start running flask.   
+Third, in the application interface, find the "Get ML prediction" input box, and enter all parameters in boxes. Then, click "predict". The app will open a new window (sometimes behind the window of the app) which shows an interactive map of the target area.   
 ![](instruction_files/img4.png)
 
 
 ### Anything else we need to know about running your application?
 ![](instruction_files/img2.png)
-
-Anything else we need to know about running your application?
 
 For the machine learning part, you need to train the model locally, because the pre-trained model is too big to be uploaded on GitHub (about 130Mb). To train a model, you need to go to front-end/public/API and run python script "MachineLearning.py". This will take about 20 seconds to train a model. After having the trained model, you can run the API and start using the machine learning function.
 ![](instruction_files/img3.png)
@@ -71,39 +69,39 @@ For the machine learning part, you need to train the model locally, because the 
 ### If you used some online code, what changes did you make to the code?
 
 ### Give a list of files in your submission which are written by you.
-front-end/main.py
-front-end/mongoUtil.py
-front-end/queryMongo.py
-front-end/README.md
-instructions.md
-front-end/src/api.js
-front-end/src/api2.js
-front-end/src/App.css
-front-end/src/index.css
-front-end/src/index.js
-front-end/src/main.js
-front-end/src/components/MapChart.js
-front-end/src/components/ML.js
-front-end/src/components/MongoQuery.js
-front-end/src/components/test.js
-front-end/src/components/Timeline.js
-front-end/src/components/userInput.js
-front-end/src/components/Workspace.js
-front-end/server/index.js
-front-end/server/controllers/accident-ctrl.js
-front-end/server/controllers/county-ctrl.js
-front-end/server/db/index.js
-front-end/server/models/accidentModel.js
-front-end/server/models/countyModel.js
-front-end/server/routes/accident-router.js
-front-end/server/routes/county-router.js
-front-end/public/API/MachineLearning.py
-front-end/public/API/LoadModel.py
-front-end/src/components/LoadModel.py
-front-end/public/API/api.py
-front-end/DataCleaning.ipynb
-front-end/DataPreparation.ipynb
-front-end/DataPreprocess.ipynb
+front-end/main.py  
+front-end/mongoUtil.py  
+front-end/queryMongo.py  
+front-end/README.md  
+instructions.md  
+front-end/src/api.js  
+front-end/src/api2.js  
+front-end/src/App.css  
+front-end/src/index.css  
+front-end/src/index.js  
+front-end/src/main.js  
+front-end/src/components/MapChart.js  
+front-end/src/components/ML.js  
+front-end/src/components/MongoQuery.js  
+front-end/src/components/test.js  
+front-end/src/components/Timeline.js  
+front-end/src/components/userInput.js  
+front-end/src/components/Workspace.js  
+front-end/server/index.js  
+front-end/server/controllers/accident-ctrl.js  
+front-end/server/controllers/county-ctrl.js  
+front-end/server/db/index.js  
+front-end/server/models/accidentModel.js  
+front-end/server/models/countyModel.js  
+front-end/server/routes/accident-router.js  
+front-end/server/routes/county-router.js  
+front-end/public/API/MachineLearning.py  
+front-end/public/API/LoadModel.py  
+front-end/src/components/LoadModel.py  
+front-end/public/API/api.py  
+front-end/DataCleaning.ipynb  
+front-end/DataPreparation.ipynb  
+front-end/DataPreprocess.ipynb  
 
 
 
@@ -123,6 +121,6 @@ front-end/DataPreprocess.ipynb
 * http://localhost:4000/accidents will show fulton accidents but very slow
 
 ## Code Documentation and References：
-https://codesandbox.io/s/usa-counties-choropleth-map-quantile-2gi36?from-embed：reference on how to draw heat map
-https://recharts.org/en-US/: reference on how to draw graph, chart ... visualization
+https://codesandbox.io/s/usa-counties-choropleth-map-quantile-2gi36?from-embed：reference on how to draw heat map  
+https://recharts.org/en-US/: reference on how to draw graph, chart ... visualization  
 https://github.com/kitze/react-electron-example: referenece on how to set up Electron + React application

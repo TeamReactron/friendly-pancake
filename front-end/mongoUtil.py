@@ -187,14 +187,14 @@ if __name__ == "__main__":
             # county = row[1].split(' ')[0]
             countyIDArr.append([row[0], row[1].split(' ')[0]])
 
-    with open('US_Accidents_Dec19.csv') as csv_file:
+    with open('sample.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
 
             # parse accident
             teleArr.append(row)
 
-            parse weather
+            #parse weather
             date = row[22].split(' ')[0]
             if row[16] is not '' and row[23] is not '' and row[25] is not '' and row[26] is not '' and row[27] is not '':
                 if ((row[16], date)) not in weatherArr:

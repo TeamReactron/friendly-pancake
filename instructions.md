@@ -43,6 +43,7 @@ For front-end and server connection, we used JavaScript
 
 For front end, they are under requirments.txt.   
 under front-end folder run $ pip install -r requirements.txt  and $ npm install
+
 For back end, we used Mongoose, express, bodyParser, and they are listed in package.json
 under server folder, run $ npm install
 

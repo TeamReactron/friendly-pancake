@@ -47,11 +47,13 @@ For machine learning part, you need to open another terminal for new flask sessi
 First, in the new terminal, go to front-end/public/API document in terminal, run "export FLASK_APP=api.py" to wrap the code in a flask app. 
 Second, in the new terminal, run "flask run", to start running flask. 
 Third, in the application interface, find the "Get ML prediction" input box, and enter all parameters in boxes. Then, click "predict". The app will open a new window (sometimes behind the window of the app) which shows an interactive map of the target area. 
-
+![](instruction_file/img2)
+![](instruction_file/img3)
 
 Anything else we need to know about running your application?
 
 For the machine learning part, you need to train the model locally, because the pre-trained model is too big to be uploaded on GitHub (about 130Mb). To train a model, you need to go to front-end/public/API and run python script "MachineLearning.py". This will take about 20 seconds to train a model. After having the trained model, you can run the API and start using the machine learning function.
+![](instruction_file/img4)
 
 Code Documentation and References
 

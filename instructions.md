@@ -8,6 +8,8 @@ We are using MongoDB. Link to documentation: https://docs.mongodb.com
 ### How do we download the data you used for your project? Please do NOT submit ALL the data with your code (Submitting a very small portion (< 5 MB) so that we can run the demo might be okay)
 kaggle authentication api token: https://www.kaggle.com/docs/api 
 
+we also uploaded the sample csv file named sample.csv. So mongoUtil is able to load the data into csv in a second.
+
 
 ### How do we load this data into the database system? 
 Run python3 front-end/mongoUtil.py
@@ -39,9 +41,10 @@ For front-end and server connection, we used JavaScript
 
 ### List the third-party libraries needed to execute your code and how do we install them (For ex. MySQL/neo4j connector for Python)
 
-They are under requirments.txt.   
-under front-end folder run $ pip install -r requirements.txt  
-run npm install  
+For front end, they are under requirments.txt.   
+under front-end folder run $ pip install -r requirements.txt  and $ npm install
+For back end, we used Mongoose, express, bodyParser, and they are listed in package.json
+under server folder, run $ npm install
 
 For machine learning part, we used sklearn to train model; we used pandas and numpy for data framewokr; we used folium to build interactive heatmap; we also used flask to run a web session for machine learning code. 
 
@@ -64,7 +67,7 @@ For the machine learning part, you need to train the model locally, because the 
 ## Code Documentation and References
 
 ### Did you use some code from GitHub or other sources? If yes provide the link.
-
+we followed this tutorial to build back end query and schema https://medium.com/swlh/how-to-create-your-first-mern-mongodb-express-js-react-js-and-node-js-stack-7e8b20463e66
 
 ### If you used some online code, what changes did you make to the code?
 
